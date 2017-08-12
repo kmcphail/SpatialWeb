@@ -6,11 +6,12 @@ import java.sql.Statement;
 
 public class DBUtility {
 	private static final String Driver = "org.postgresql.Driver";
-	private static final String ConnUrl = "jdbc:postgresql://52.173.88.140:5432/disastermngt";
+	private static final String ConnUrl = "jdbc:postgresql://52.173.88.140:5432/geog574project";
 	private static final String Username = "geog576_ro";
 	private static final String Password = "Y%tezcNnjb!6Gzz4";
-
-	String sql = "WITH local_sp AS ( SELECT eb.geom FROM ebd_cranes.ebird AS eb " +
+	
+	//temp sql statment, sql statment will reside in servlet(backend)
+	static String sql = "WITH local_sp AS ( SELECT eb.geom FROM ebd_cranes.ebird AS eb " +
 						 "JOIN census.county AS cn ON ST_INTERSECTS(eb.geom, cn.geom) " +
 						 "WHERE cn.name = 'Dane' AND cn.state = 'WI' AND " +
 						 	"eb.common_name = 'Sandhill Crane') " +
