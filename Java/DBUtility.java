@@ -10,7 +10,7 @@ public class DBUtility {
 	private static final String Username = "geog576_ro";
 	private static final String Password = "Y%tezcNnjb!6Gzz4";
 	
-	//temp sql statment, sql statment will reside in index(backend)
+	//temp sql statment, sql statment will reside in servlet(backend)
 	static String sql = "WITH local_sp AS ( SELECT eb.geom FROM ebd_cranes.ebird AS eb " +
 						 "JOIN census.county AS cn ON ST_INTERSECTS(eb.geom, cn.geom) " +
 						 "WHERE cn.name = 'Dane' AND cn.state = 'WI' AND " +
