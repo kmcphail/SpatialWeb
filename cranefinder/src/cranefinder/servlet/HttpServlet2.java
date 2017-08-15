@@ -23,19 +23,19 @@ import javax.servlet.http.HttpServletResponse;
 * Servlet implementation class HttpServlet
 */
 @WebServlet("/HttpServlet")
-public class HttpServlet extends javax.servlet.http.HttpServlet {
+public class HttpServlet2 extends javax.servlet.http.HttpServlet {
 	private static final long serialVersionUID = 1L;
       
    /**
     * @see javax.servlet.http.HttpServlet#javax.servlet.http.HttpServlet()
     */
-   public HttpServlet() {
+   public HttpServlet2() {
        super();
        // TODO Auto-generated constructor stub
    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet2#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -43,7 +43,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet2#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -178,11 +178,10 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 			response) throws JSONException, SQLException, IOException {
 		JSONArray list = new JSONArray();
 		
-		//This query will return the POINTS at the center of the 10 nearest PAs
 		String sql = "select month, species, max_observed, avg_reports, " +
 				"d_des_tp, loc_nm, unit_nm, state_nm, st_X(ST_CENTROID(geom))"+
 				" as longitude, st_y(ST_CENTROID(geom)) as latitude from "+
-				"public.rpt_cranes_in_pa Where species = 'WHCR' and Month = 8"+
+				"public.rpt_cranes_in_pa Where species = 'SACR' and Month = 8"+
 				"Order by geom <-> st_setsrid(st_makepoint(-90,45),4326) LIMIT 10";
 		
 		DBUtility dbutil = new DBUtility();
