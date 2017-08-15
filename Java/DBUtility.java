@@ -11,17 +11,8 @@ public class DBUtility {
 	private static final String Password = "Y%tezcNnjb!6Gzz4";
 	
 	//temp sql statment, sql statment will reside in servlet(backend)
-	static String sql = "WITH local_sp AS ( SELECT eb.geom FROM ebd_cranes.ebird AS eb " +
-						 "JOIN census.county AS cn ON ST_INTERSECTS(eb.geom, cn.geom) " +
-						 "WHERE cn.name = 'Dane' AND cn.state = 'WI' AND " +
-						 	"eb.common_name = 'Sandhill Crane') " +
-						 "SELECT up.unit_nm AS protected_area, ac.d_access AS access_type " +
-						 "FROM usgs_pad.area AS up " +
-						 "JOIN local_sp ON ST_INTERSECTS(local_sp.geom, up.geom) " +
-						 "JOIN usgs_pad.access AS ac ON up.access=ac.access " +
-						 "WHERE up.access NOT IN ('UK','XA') " +
-						 "GROUP BY up.unit_nm, ac.d_access " +
-						 "ORDER BY ac.d_access, up.unit_nm";
+	static String sql = "SELECT *, ST_AsGeoJson(geom) as geojason FROM public.rpt_cranes_in_pa WHERE species ='SACR' 
+		and month=8 ORDER BY geom <-> st_setsrid(st_makepoint(-90,45),4326) LIMIT 10";
 	
 	// This is a constructor
 	public DBUtility() {
@@ -84,7 +75,7 @@ public class DBUtility {
 		//1. query the database
 		ResultSet res = util.queryDB(sql);
 		while (res.next()) {
-			System.out.println(res.getString("protected_area"));
+			System.out.println(res.getString("unit_nm"));
 		}
 		
 		
