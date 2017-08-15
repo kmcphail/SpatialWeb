@@ -202,11 +202,8 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 	private void queryLocation(HttpServletRequest request, HttpServletResponse 
 			response) throws JSONException, SQLException, IOException {
 		JSONArray list = new JSONArray();
-		/*
-		String sql ="SELECT * + FROM public.cranes_in_pa WHERE species ='SACR' and month=8" +
-				"ORDER BY geom <-> st_setsrid(st_makepoint(-90,45),4326)+LIMIT 10";
-		*/
-		String sql = "select * from public.rpt_cranes_in_pa Where species = 'SARC' and Month = 8"+
+		
+		String sql = "select * from public.rpt_cranes_in_pa Where species = 'SACR' and Month = 8"+
 				"Order by geom <-> st_setsrid(st_makepoint(-90,45),4326)+LIMIT 10";
 		/*
 		String disaster_type = request.getParameter("disaster_type");
@@ -243,10 +240,11 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 					"report_id";
 			queryReportHelper(sql,list,"damage",disaster_type,resource_or_damage);
 		}
-		
+		*/
 		response.getWriter().write(list.toString());
 	}
 	
+	/*
 	private void queryReportHelper(String sql, JSONArray list, String report_type,
 			String disaster_type, String resource_or_damage) throws SQLException {
 		DBUtility dbutil = new DBUtility();	
@@ -259,10 +257,11 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 			} else {
 				sql += " and resource_type = '" + resource_or_damage + "'";
 			}
-		}*/
+		}
+		
 		DBUtility dbutil = new DBUtility();	
 		dbutil.queryDB(sql);
-		/*
+		
 		ResultSet res = dbutil.queryDB(sql);
 		while (res.next()) {
 			
@@ -285,8 +284,8 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 			m.put("latitude", res.getString("latitude"));
 			m.put("message", res.getString("message"));
 			list.put(m);
-		}*/
-	}
+		}
+	}*/
 	
 	public void main() throws JSONException {
 	}
