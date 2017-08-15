@@ -69,6 +69,7 @@ public class DBUtility {
 	 * @param args
 	 * @throws SQLException 
 	 */
+	/*
 	public static void main(String[] args) throws SQLException {
 		// You can test the methods you created here
 		DBUtility util = new DBUtility();
@@ -78,7 +79,7 @@ public class DBUtility {
 		ResultSet res = util.queryDB(sql);
 		while (res.next()) {
 			System.out.println(res.getString("unit_nm"));
-		}
+		}*/
 		
 		
 	}

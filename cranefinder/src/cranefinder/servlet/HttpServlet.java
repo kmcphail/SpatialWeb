@@ -177,13 +177,16 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 	private void queryLocation(HttpServletRequest request, HttpServletResponse 
 			response) throws JSONException, SQLException, IOException {
 		JSONArray list = new JSONArray();
-		
+		/*
 		String sql = "select month, species, max_observed, avg_reports, " +
 				"d_des_tp, loc_nm, unit_nm, state_nm, st_X(ST_CENTROID(geom))"+
 				" as longitude, st_y(ST_CENTROID(geom)) as latitude from "+
 				"public.rpt_cranes_in_pa Where species = 'SACR' and Month = 8"+
 				"Order by geom <-> st_setsrid(st_makepoint(-90,45),4326) LIMIT 10";
+		*/
 		
+		String sql = "select month, species, unit_name, state_name from public.rpt_cranes_in_pa,"+
+				"ST_asGeoJSON(geom) From public.rpt_cranes_in_pa where species = 'SACR' and Month =8";
 		DBUtility dbutil = new DBUtility();
 		 dbutil.queryDB(sql);
 		/*
