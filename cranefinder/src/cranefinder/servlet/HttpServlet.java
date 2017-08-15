@@ -203,8 +203,11 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 			response) throws JSONException, SQLException, IOException {
 		JSONArray list = new JSONArray();
 		
-		String sql = "select * from public.rpt_cranes_in_pa Where species = 'SACR' and Month = 8"+
-				"Order by geom <-> st_setsrid(st_makepoint(-90,45),4326)+LIMIT 10";
+		String sql = "select month, species, max_observed, avg_reports, " +
+				"d_des_tp, loc_nm, unit_nm, state_nm, st_X(ST_CENTROID(geom))"+
+				" as longitude, st_y(ST_CENTROID(geom)) as latitude from "+
+				"public.rpt_cranes_in_pa Where species = 'SACR' and Month = 8"+
+				"Order by geom <-> st_setsrid(st_makepoint(-90,45),4326) LIMIT 10";
 		/*
 		String disaster_type = request.getParameter("disaster_type");
 		String report_type = request.getParameter("report_type");
