@@ -11,11 +11,11 @@ public class DBUtility {
 	private static final String ConnUrl = "jdbc:postgresql://52.173.88.140:5432/geog574project";
 	private static final String Username = "geog576_ro";
 	private static final String Password = "Y%tezcNnjb!6Gzz4";
-	
+	/**
 	//temp sql statment, sql statment will reside in servlet(backend)
 	static String sql = "SELECT *, ST_AsGeoJson(geom) as geojason FROM public.rpt_cranes_in_pa WHERE species ='SACR'" + 
 		"and month=8 ORDER BY geom <-> st_setsrid(st_makepoint(-90,45),4326) LIMIT 10";
-	
+	**/
 	// This is a constructor
 	public DBUtility() {
 	}
