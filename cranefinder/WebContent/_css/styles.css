@@ -123,6 +123,12 @@ div > h2 {
   padding: 0% 0%;
 }
 
+#map-canvas {
+  height:100%;
+  position: absolute;
+  right:0;
+}
+
 
 /* Footer */
 .coverfooter,
@@ -133,3 +139,5 @@ div > h2 {
   bottom: 0;
   width: 100%;
 }
+
+

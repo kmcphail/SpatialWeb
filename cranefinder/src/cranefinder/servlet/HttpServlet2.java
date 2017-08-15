@@ -221,8 +221,8 @@ public class HttpServlet2 extends javax.servlet.http.HttpServlet {
 					"report_id";
 			queryReportHelper(sql,list,"damage",disaster_type,resource_or_damage);
 		}
-		
-		response.getWriter().write(list.toString());*/
+		*/
+		response.getWriter().write(list.toString());
 	}
 	
 	/*

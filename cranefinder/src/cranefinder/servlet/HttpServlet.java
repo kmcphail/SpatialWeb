@@ -49,8 +49,8 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-	/*	
-//String tab_id = request.getParameter("tab_id");
+		
+		String tab_id = request.getParameter("tab_id");
 		
 		// create a report
 		if (tab_id.equals("0")) {
@@ -64,6 +64,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		
 		// query reports
 		else if (tab_id.equals("1")) {
+			System.out.println("A report is queried!");
 			try {
 				queryReport(request, response);
 			} catch (JSONException e) {
@@ -73,7 +74,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}*/
+		}
 	}
 	
 	
@@ -174,7 +175,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 	*/	
 	}
 
-	private void queryLocation(HttpServletRequest request, HttpServletResponse 
+	private void queryReport(HttpServletRequest request, HttpServletResponse 
 			response) throws JSONException, SQLException, IOException {
 		JSONArray list = new JSONArray();
 		
@@ -186,7 +187,24 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 				"Order by geom <-> st_setsrid(st_makepoint(-90,45),4326) LIMIT 10";
 		
 		DBUtility dbutil = new DBUtility();
-		 dbutil.queryDB(sql);
+		 //dbutil.queryDB(sql);
+		 
+		 ResultSet res = dbutil.queryDB(sql);
+			while (res.next()) {
+				
+				HashMap<String, String> m = new HashMap<String,String>();
+				m.put("month", res.getString("month"));
+				m.put("species", res.getString("species"));			
+				m.put("max_observation", res.getString("max_observation"));
+				m.put("avg_reports", res.getString("avg_reports"));
+				m.put("d_des_tp", res.getString("d_des_dp"));
+				m.put("loc_nm", res.getString("loc_nm"));
+				m.put("unit_nm", res.getString("unit_nm"));
+				m.put("state_nm", res.getString("state_nm"));
+				m.put("latitude", res.getString("latitude"));
+				m.put("longitude", res.getString("longitude"));
+				list.put(m);
+			}
 		/*
 		String disaster_type = request.getParameter("disaster_type");
 		String report_type = request.getParameter("report_type");
@@ -222,8 +240,8 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 					"report_id";
 			queryReportHelper(sql,list,"damage",disaster_type,resource_or_damage);
 		}
-		
-		response.getWriter().write(list.toString());*/
+	*/
+		response.getWriter().write(list.toString());
 	}
 	
 	/*
@@ -266,8 +284,8 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 			//m.put("message", res.getString("message"));
 			list.put(m);
 		}
-	}*/
-	
+	}
+	*/
 	public void main() throws JSONException {
 	}
 
