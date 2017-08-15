@@ -49,8 +49,23 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-	/*	
-//String tab_id = request.getParameter("tab_id");
+		
+		JSONObject data = new JSONObject();
+		try {
+			java.util.Date d = new java.util.Date();
+			data.put("Time request received:",d.toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		response.getWriter().write(data.toString());
+		
+	}
+	
+}
+	
+		/**
+		String tab_id = request.getParameter("tab_id");
 		
 		// create a report
 		if (tab_id.equals("0")) {
@@ -65,7 +80,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		// query reports
 		else if (tab_id.equals("1")) {
 			try {
-				queryReport(request, response);
+				queryLocation(request, response);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -73,13 +88,13 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}*/
+		}
 	}
 	
 	
 	private void createReport(HttpServletRequest request, HttpServletResponse 
 			response) throws SQLException, IOException {
-		/*//Keeping in for an exmple until user input table is done... Hello Dorn
+		//Keeping in for an exmple until user input table is done... Hello Dorn
 		DBUtility dbutil = new DBUtility();		
 		String sql;
 		
@@ -171,14 +186,15 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 			e.printStackTrace();
 		}	
 		response.getWriter().write(data.toString());
-	*/	
+		
 	}
 
 	private void queryLocation(HttpServletRequest request, HttpServletResponse 
 			response) throws JSONException, SQLException, IOException {
 		JSONArray list = new JSONArray();
-<<<<<<< HEAD
-		/*
+/*
+		<<<<<<< HEAD
+		
 =======
 		
 		//This query will return the POINTS at the center of the 10 nearest PAs
@@ -188,29 +204,29 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 				" as longitude, st_y(ST_CENTROID(geom)) as latitude from "+
 				"public.rpt_cranes_in_pa Where species = 'WHCR' and Month = 8"+
 				"Order by geom <-> st_setsrid(st_makepoint(-90,45),4326) LIMIT 10";
-		*/
+		
 		
 		String sql = "select month, species, unit_name, state_name from public.rpt_cranes_in_pa,"+
 				"ST_asGeoJSON(geom) From public.rpt_cranes_in_pa where species = 'SACR' and Month =8";
 		DBUtility dbutil = new DBUtility();
 		 dbutil.queryDB(sql);
-		/*
-		String disaster_type = request.getParameter("disaster_type");
-		String report_type = request.getParameter("report_type");
+		
+		String species = request.getParameter("species");
+		//String report_type = request.getParameter("report_type");
 		// resource_or_damage will be null if report_type is null
-		String resource_or_damage = request.getParameter("resource_or_damage");
+		//String resource_or_damage = request.getParameter("resource_or_damage");
 		
-		// request report
-		if (report_type == null || report_type.equalsIgnoreCase("request")) {
-			String sql = "select report.id, report_type, resource_type, " +
-					"disaster_type, first_name, last_name, time_stamp, ST_X(geom) as " +
-					"longitude, ST_Y(geom) as latitude, message from report, person, " +
-					"request_report where reportor_id = person.id and report.id = " +
-					"report_id";
-			queryReportHelper(sql,list,"request",disaster_type,resource_or_damage);
+		// SACR report
+		if (species == null || species.equalsIgnoreCase("WHCR")) {
+			String sql = "select month, species, max_observed, avg_reports, " +
+					"d_des_tp, loc_nm, unit_nm, state_nm, st_X(ST_CENTROID(geom))"+
+					" as longitude, st_y(ST_CENTROID(geom)) as latitude from "+
+					"public.rpt_cranes_in_pa Where species = 'WHCR' and Month = 8"+
+					"Order by geom <-> st_setsrid(st_makepoint(-90,45),4326) LIMIT 10";
+			queryReportHelper(sql,list,"SAspecies");}//disaster_type,resource_or_damage);
 		}
-		
-		// donation report
+		/*
+		//  report
 		if (report_type == null || report_type.equalsIgnoreCase("donation")) {
 			String sql = "select report.id, report_type, resource_type, " +
 					"disaster_type, first_name, last_name, time_stamp, ST_X(geom) as " +
@@ -230,13 +246,14 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 			queryReportHelper(sql,list,"damage",disaster_type,resource_or_damage);
 		}
 		
-		response.getWriter().write(list.toString());*/
+		response.getWriter().write(list.toString());
 	}
 	
-	/*
-	private void queryReportHelper(String sql, JSONArray list, String report_type,
-			String disaster_type, String resource_or_damage) throws SQLException {
+	
+	private void queryReportHelper(String sql, JSONArray list, String report_type
+		) throws SQLException {
 		DBUtility dbutil = new DBUtility();	
+		/*
 		if (disaster_type != null) {
 			sql += " and disaster_type = '" + disaster_type + "'";
 		}
@@ -273,9 +290,9 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 			//m.put("message", res.getString("message"));
 			list.put(m);
 		}
-	}*/
+	}
 	
 	public void main() throws JSONException {
 	}
-
-}
+*/
+//}
