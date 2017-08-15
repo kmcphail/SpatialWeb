@@ -94,7 +94,8 @@ var vectorLayer = new ol.layer.Vector({
   source: new ol.source.Vector({
     url:
     // Example file contains polygon coordinates & field values
-    "https://openlayers.org/en/v4.2.0/examples/data/geojson/countries.geojson",
+    //"https://openlayers.org/en/v4.2.0/examples/data/geojson/countries.geojson",
+    	"_scripts/whoopers.geojson",
     // Potential files to test? Replace as necessary (comment out the rest to test)
       //"_scripts/state_geojson.geojson",
       //"_scripts/county_geojson.geojson",
