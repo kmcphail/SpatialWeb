@@ -1,0 +1,135 @@
+/* Shared buttons, background and headers */
+a,
+a:focus,
+a:hover {
+  color: #CCC;
+}
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: #CCC;
+  background-color: #FFF;
+  border: 1px solid #FFF;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: #333;
+}
+body {
+  color: #FFF;
+  text-align: center;
+}
+
+div > h1 {
+  font-size: 26px;
+}
+div > h2 {
+  font-size: 32px;
+}
+
+
+/* Site wrappers and containers */
+.site-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+.site-wrapper-inner {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.cover-container {
+  margin-right: auto;
+  margin-left: auto;
+  vertical-align: center;
+  width: 100%;
+}
+.main-container {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  vertical-align: center;
+  width: 100%;
+}
+.cover-inner {
+  padding: 0 20%;
+}
+
+
+/* Header */
+.mainheader {
+  background: #333;
+  color: #FFF;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.mainheader-inner {
+  padding: 0 5%;
+}
+.mainheader-brand{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  float: left;
+}
+.mainheader-nav {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  float: right;
+}
+.mainheader-nav > li {
+  display: inline-block;
+}
+.mainheader-nav > li + li {
+  margin-left: 20px;
+}
+.mainheader-nav > li > a {
+  padding-right: 0;
+  padding-left: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #FFF;
+  color: rgba(255,255,255,.75);
+  border-bottom: 2px solid transparent;
+}
+.mainheader-nav > li > a:hover,
+.mainheader-nav > li > a:focus {
+  background-color: transparent;
+  border-bottom-color: #A9A9A9;
+  border-bottom-color: rgba(255,255,255,.25);
+}
+.mainheader-nav > .active > a,
+.mainheader-nav > .active > a:hover,
+.mainheader-nav > .active > a:focus {
+  color: #FFF;
+  border-bottom-color: #FFF;
+}
+
+
+/* Body */
+.cover {
+  padding: 5% 15%;
+}
+.cover .btn-lg {
+  padding: 10px 20px;
+  font-weight: bold;
+}
+.main {
+  padding: 0% 0%;
+}
+
+
+/* Footer */
+.coverfooter,
+.mainfooter {
+  background: #333;
+  color: #999;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
