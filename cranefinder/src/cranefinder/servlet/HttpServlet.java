@@ -83,31 +83,6 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		DBUtility dbutil = new DBUtility();		
 		String sql;
 		
-		// 1. create emergency contact
-		int contact_id = 0;
-		String contact_fN = request.getParameter("contact_fN");
-		String contact_lN = request.getParameter("contact_lN");
-		String contact_tel = request.getParameter("contact_tel");
-		String contact_email = request.getParameter("contact_email");
-		if (contact_fN != null) {contact_fN = "'" + contact_fN + "'";}
-		if (contact_lN != null) {contact_lN = "'" + contact_lN + "'";}
-		if (contact_tel != null) {contact_tel = "'" + contact_tel + "'";}
-		if (contact_email != null) {contact_email = "'" + contact_email + "'";}
-		if (contact_fN != null && contact_lN != null) {
-			// create the contact
-			sql = "insert into person (first_name, last_name, telephone, email) " +
-					"values (" + contact_fN + "," + contact_lN + "," + contact_tel + "," 
-					+ contact_email + ")";
-			dbutil.modifyDB(sql);
-			
-			// record the contact id
-			ResultSet res_1 = dbutil.queryDB("select last_value from person_id_seq");
-			res_1.next();
-			contact_id = res_1.getInt(1);
-			
-			System.out.println("Success! Contact created.");
-		}
-		
 		// 2. create user
 		int user_id = 0;
 		String fN = request.getParameter("fN");
@@ -208,6 +183,9 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 				" as longitude, st_y(ST_CENTROID(geom)) as latitude from "+
 				"public.rpt_cranes_in_pa Where species = 'SACR' and Month = 8"+
 				"Order by geom <-> st_setsrid(st_makepoint(-90,45),4326) LIMIT 10";
+		
+		DBUtility dbutil = new DBUtility();
+		 dbutil.queryDB(sql);
 		/*
 		String disaster_type = request.getParameter("disaster_type");
 		String report_type = request.getParameter("report_type");
@@ -243,8 +221,8 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 					"report_id";
 			queryReportHelper(sql,list,"damage",disaster_type,resource_or_damage);
 		}
-		*/
-		response.getWriter().write(list.toString());
+		
+		response.getWriter().write(list.toString());*/
 	}
 	
 	/*
@@ -268,10 +246,9 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		ResultSet res = dbutil.queryDB(sql);
 		while (res.next()) {
 			
-			// add to response
 			HashMap<String, String> m = new HashMap<String,String>();
-			m.put("report_id", res.getString("id"));
-			m.put("report_type", res.getString("report_type"));			
+			m.put("month", res.getString("month"));
+			m.put("species", res.getString("species"));			
 			//if (report_type.equalsIgnoreCase("donation") || 
 			//		report_type.equalsIgnoreCase("request")) {
 			//	m.put("resource_type", res.getString("resource_type"));
@@ -279,13 +256,13 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 			//else if (report_type.equalsIgnoreCase("damage")) {
 			//	m.put("damage_type", res.getString("damage_type"));
 			//}
-			m.put("disaster", res.getString("disaster_type"));
-			m.put("first_name", res.getString("first_name"));
-			m.put("last_name", res.getString("last_name"));
-			m.put("time_stamp", res.getString("time_stamp"));
-			m.put("longitude", res.getString("longitude"));
-			m.put("latitude", res.getString("latitude"));
-			m.put("message", res.getString("message"));
+			m.put("max_observation", res.getString("max_observation"));
+			m.put("ave_reports", res.getString("ave_reports"));
+			m.put("d_des_tp", res.getString("d_des_dp"));
+			m.put("loc_nm", res.getString("loc_nm"));
+			m.put("unit_nm", res.getString("unit_nm"));
+			m.put("state_nm", res.getString("state_nm"));
+			//m.put("message", res.getString("message"));
 			list.put(m);
 		}
 	}*/
