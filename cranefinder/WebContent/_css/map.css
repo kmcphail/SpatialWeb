@@ -1,0 +1,78 @@
+body {
+  overflow: hidden;
+}
+.mainheader-offset {
+  margin-top: 48px;
+}
+
+#map .ol-zoom {
+  font-size: 1.5em;
+}
+#map {
+  position: absolute;
+  top: 48px;
+  bottom: 0px;
+  left: 0px; 
+  right: 0px;
+  z-index: 10;
+}
+
+/* TO DO: Fix zoom toolbar placement
+.ol-zoom,
+.ol-zoom-in {
+  top: 15px;
+  left: auto;
+  right: 5px;
+}
+.ol-zoom,
+.ol-zoom-out {
+  position: relative;
+  right: 5px;
+}
+
+.zoom-top-opened-sidebar { 
+  margin-top: 5px;
+  padding: 5px;
+}
+.zoom-top-collapsed {
+  margin-top: 60px;
+}
+*/
+
+.sidebar-collapsed{
+  display:none;  
+  background-color: rgba(255, 255, 255, 0.75);
+  border: 4px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  padding: 5px;
+  width: 36px;
+  text-align: center;
+  position: absolute;
+  top: 150px;
+  left: 12px;
+  z-index: 20;
+}
+.sidebar-collapsed-left {
+  position: absolute;
+  top: 150px;
+  left: 12px;
+  z-index: 20;
+}
+.sidebar {
+  top: 15px;
+  z-index: 30; 
+}
+.main-row {
+  position: relative; 
+  top: 0;
+}
+sidebar-collapsed:hover{
+  cursor: pointer;
+}
+.slide-sidebar{
+  background: rgba(0, 0, 0, 0.0);
+  display: inline-block;
+  padding: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}

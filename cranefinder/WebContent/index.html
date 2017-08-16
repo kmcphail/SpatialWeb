@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Seth Frazier, Kirk McPhail, Dorn Moore">
+  <meta name="description" content="This page is designed to help users locate nearby areas where they can view crane species.">
+  <meta name="keywords" content="Crane finder, bird watching, bird search, locate species">
+  <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+  
+  <title>
+    Crane Finder App
+  </title>
+  
+  <!-- CSS -->
+  <link href="_css/styles.css" rel="stylesheet" type="text/css">
+  <link href="_css/map.css" rel="stylesheet" type="text/css">
+  <!-- JavaScript -->
+  <!-- TO DO: Fix loadform.js
+  <script src="_scripts/loadform.js" type="text/javascript"></script>
+  -->
+  <!-- TO DO: Add loadmap.js -->
+  
+  <!-- jQuery -->
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  
+  <!-- Bootstrap libraries -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <!-- OpenLayers libraries -->
+  <link href="https://openlayers.org/en/v4.2.0/css/ol.css" rel="stylesheet" type="text/css">
+  <script src="http://openlayers.org/api/OpenLayers.js" type="text/javascript" ></script>
+  <script src="https://openlayers.org/en/v4.2.0/build/ol.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <div class="main-container">
+    
+    <!-- Navbar section -->
+    <div class="mainheader">
+      <div class="mainheader-inner">
+        <h1 class="mainheader-brand">Crane Finder App</h1>
+        <nav class="nav mainheader-nav">
+          <ul class="nav nav-tabs">
+            <li><a href="cover.html" class="btn btn-sm btn-default">Home</a></li>
+            <li><a href="index.html" class="btn btn-sm btn-default">Map</a></li>
+            <li><a href="about.html" class="btn btn-sm btn-default">About</a></li>
+            <li><a href="contact.html" class="btn btn-sm btn-default">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="mainheader-offset"></div>
+    
+    <!-- Map section -->
+    <div id="map"></div>
+	<script src="_scripts/map_OpenLayers.js" type="text/javascript"></script>    
+    
+    <!-- Sidebar section -->
+    <!-- TO DO: Fix panel collapse -->
+    <div class="main-row">
+      <div class="sidebar col-sm-4 col-md-3 sidebar-left pull-left">
+        <div class="panel-group sidebar-body" id="accordion-left">
+          
+          <!-- Query Panel -->
+          <!-- User submits their crane query here -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title">
+                <a data-toggle="collapse" href="#querypanel">Query</a>
+                <span class="pull-right slide-sidebar">
+                  <i class="glyphicon glyphicon-chevron-left"></i>
+                </span>
+              </h2>
+            </div>
+            <div id="querypanel" class="panel-collapse collapse in">
+              <div class="panel-body list-group">
+                <form id="qry_form">
+
+                  <!-- Species input -->
+                  <div class="list-group-item"><label>Species:</label>
+                    <div>
+                      <label><input type="checkbox" value="sandhill">&nbsp;Sandhill Crane</label><br>
+                      <label><input type="checkbox" value="whooping">&nbsp;Whooping Crane</label>
+                    </div>
+                  </div>
+
+                  <!-- Month input -->
+                  <div class="list-group-item"><label>Month:</label>
+                    <select id="month" name="month">
+                      <!-- TO DO: Set current month as default value -->
+                      <option value="January">January</option>
+                      <option value="February">February</option>
+                      <option value="March">March</option>
+                      <option value="April">April</option>
+                      <option value="May">May</option>
+                      <option value="June">June</option>
+                      <option value="July">July</option>
+                      <option value="August">August</option>
+                      <option value="September">September</option>
+                      <option value="October">October</option>
+                      <option value="November">November</option>
+                      <option value="December">December</option>
+                    </select>
+                  </div>
+
+                  <!-- Location type input -->
+                  <div class="list-group-item"><label>Search by:</label>
+                    <select onchange="onSelectLocationType(this)" name="location_type">
+                      <option value="query_currloc">Current Location</option>
+                      <option value="query_addr">Address</option>
+                      <option value="query_latlng">Coordinates</option>
+                      <option value="query_stcnty">State/County</option>
+                    </select>
+                  </div>
+
+                  <!-- Location hidden input -->
+                  <!-- TO DO: Set hidden fields for each location type -->
+                  <div class="location_field_div" style="visibility: hidden">
+                    <label class="location_field_label"></label>
+                    <select class="location_field_select" name="location_field"></select>
+                  </div>
+
+                  
+                  <!-- TO DO: Set hidden county fields for each state -->
+
+                  <!-- Hidden fields
+                  <div id="input_addr" class="list-group-item" style="display:none;">
+                    <input id="autocomplete" placeholder="Address" name="query_address" class="list-group-item">
+                  </div>
+                  <div id="input_latlng" class="list-group-item" style="display:none;">
+                    <input placeholder="Latitude..." name="lat">
+                    <input placeholder="Longitude..." name="lng">
+                  </div>
+                  <div id="input_stcnty" class="list-group-item" style="display:none;">
+                    <select name="query_state" class="list-group-item">
+                      <option value="">State</option>
+                    </select>
+                    <select name="query_county" style="display:none;" class="list-group-item">
+                      <option value="">County</option>
+                    </select>
+                  </div>
+                  -->
+
+                  <button type="submit" class="btn btn-default" id="query_submit_btn">
+                    <span class="glyphicon glyphicon-ok"></span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Details Panel -->
+          <!-- Field values from GeoJSON file displayed here on mouse-over -->
+          <!-- TO DO: Possible alternative to pop-up box -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title">
+                <a data-toggle="collapse" href="#details">Details</a>
+              </h2>
+            </div>
+            <div id="details" class="panel-collapse collapse in">
+              <div class="panel-body">
+                <!-- OpenLayers example displays country names -->
+                <div id="map_info">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Observations Panel -->
+          <!-- User submits their crane observations here -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title">
+                <a data-toggle="collapse" href="#observations">Observations</a>
+              </h2>
+            </div>
+            <div id="observations" class="panel-collapse collapse in">
+              <div class="panel-body list-group">
+                <form id="obs_form">
+
+                  <!-- Species input -->
+                  <div class="list-group-item"><label>Species:</label>
+                    <div>
+                      <label><input type="checkbox" value="sandhill">&nbsp;Sandhill Crane</label><br>
+                      <label><input type="checkbox" value="whooping">&nbsp;Whooping Crane</label>
+                    </div>
+                  </div>
+
+                  <!-- Month input -->
+                  <div class="list-group-item"><label>Month:</label>
+                    <select id="month" name="month">
+                      <!-- TO DO: Set current month as default value -->
+                      <option value="January">January</option>
+                      <option value="February">February</option>
+                      <option value="March">March</option>
+                      <option value="April">April</option>
+                      <option value="May">May</option>
+                      <option value="June">June</option>
+                      <option value="July">July</option>
+                      <option value="August">August</option>
+                      <option value="September">September</option>
+                      <option value="October">October</option>
+                      <option value="November">November</option>
+                      <option value="December">December</option>
+                    </select>
+                  </div>
+                  
+                  <!-- TO DO: Add relevant user inputs (number of individuals, activity, etc.) -->
+
+                  <button type="submit" class="btn btn-default" id="obs_submit_btn">
+                    <span class="glyphicon glyphicon-ok"></span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <!-- Collapsed sidebar -->
+    <div class="sidebar-collapsed sidebar-collapsed-left pull-left">
+      <i class="glyphicon glyphicon-chevron-right"></i>
+    </div>
+    
+  </div>
+</body>
+</html> 
