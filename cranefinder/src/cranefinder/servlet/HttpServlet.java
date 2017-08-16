@@ -89,30 +89,61 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		JSONArray list = new JSONArray();
 
 		DBUtility dbutil = new DBUtility();
-		
+		/* 
 		String sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm, "+
 				"st_X(ST_CENTROID(geom)) as longitude, st_y(ST_CENTROID(geom)) as latitude from public.rpt_cranes_in_pa "+ 
-				"Where species = 'WHCR' and Month = 3Order by geom <-> st_setsrid(st_makepoint(-90,45),4326) LIMIT 10";
-		 
+				"Where species = 'SACR' and Month = 3 Order by geom <-> st_setsrid(st_makepoint(-121,42),4326) LIMIT 5";
+		
+		String species = request.getParameter("species");
+		if (species.equals(species.equalsIgnoreCase("SACR"))) {
+			String sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm, "+
+					"st_X(ST_CENTROID(geom)) as longitude, st_y(ST_CENTROID(geom)) as latitude from public.rpt_cranes_in_pa "+ 
+					"Where species = 'SACR' and Month = 3 Order by geom <-> st_setsrid(st_makepoint(-121,42),4326) LIMIT 5";
+		*/	
+		
+		//Getter for species - return either 'SACR' or 'WHCR'
+		//String species = request.getParameter("species");
+		String species = "SACR"; //FOR TESTING
+		
+		//Getter for month - return integer month as string
+		//String month = request.getParameter("report_type");
+		String month = "8"; //FOR TESTING
+		
+		//Getter for How many locations to return - number
+		//String myCount = request.getParameter("myCount");
+		String myCount = "10";
+		
+		//Getter for Lat & Long
+		//NEED TO BUILD
+		String longitude = "-121"; //FOR TESTING
+		String latitude = "42"; //FOR TESTING
+		
+		// request report
+		String sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm," + 
+					"st_X(ST_CENTROID(geom)) as longitude, st_y(ST_CENTROID(geom)) as latitude "+ 
+					"from public.rpt_cranes_in_pa where species = '"+ species + "' and month = "+ month +
+					" ORDER BY geom <-> st_setsrid(st_makepoint("+longitude+","+latitude+"), 4326) LIMIT "+ myCount;
+		System.out.println(sql);
+		
 		ResultSet res = dbutil.queryDB(sql);
-			while (res.next()) {
-				HashMap<String, String> m = new HashMap<String,String>();
-				m.put("month", res.getString("month"));
-				m.put("species", res.getString("species"));			
-				m.put("max_observed", res.getString("max_observed"));
-				m.put("avg_reports", res.getString("avg_reports"));
-				m.put("d_des_tp", res.getString("d_des_tp"));
-				m.put("loc_nm", res.getString("loc_nm"));
-				m.put("unit_nm", res.getString("unit_nm"));
-				m.put("state_nm", res.getString("state_nm"));
-				m.put("latitude", res.getString("latitude"));
-				m.put("longitude", res.getString("longitude"));
-				list.put(m);
-			}
-	
-		response.getWriter().write(list.toString());
+		while (res.next()) {
+			HashMap<String, String> m = new HashMap<String,String>();
+			m.put("month", res.getString("month"));
+			m.put("species", res.getString("species"));			
+			m.put("max_observed", res.getString("max_observed"));
+			m.put("avg_reports", res.getString("avg_reports"));
+			m.put("d_des_tp", res.getString("d_des_tp"));
+			m.put("loc_nm", res.getString("loc_nm"));
+			m.put("unit_nm", res.getString("unit_nm"));
+			m.put("state_nm", res.getString("state_nm"));
+			m.put("latitude", res.getString("latitude"));
+			m.put("longitude", res.getString("longitude"));
+			list.put(m);
+		}
+
+	response.getWriter().write(list.toString());
 	}
-	
+
 
 	public void main() throws JSONException {
 	}

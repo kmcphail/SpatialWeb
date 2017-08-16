@@ -33,5 +33,7 @@
 <div id="map-canvas"></div>
 
 <script src="_scripts/loadmap.js"></script> 
+
+
 </body>
 </html>

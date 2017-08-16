@@ -22,7 +22,7 @@ function showAllReports() {
 	  $.ajax({
 	    url: 'HttpServlet',
 	    type: 'POST',
-	    data: { "tab_id": "1"},
+	    data: { "tab_id": "1","species":"WHCR","month":"8"},
 	    success: function(reports) {
 	    	mapInitialization(reports);
 	    },
@@ -53,7 +53,7 @@ function mapInitialization(reports) {
 		    
 		    //used the line below to test if the request type was coming through.
 		    //contentStr += '<p><b>' + icons[report_type].icon + '</b></p>';
-		    
+		    contentStr += '<p><b>' + 'Species' + ':</b>&nbsp' + e['species'] + '</p>';
 		    contentStr += '<p><b>' + 'Unit Name' + ':</b>&nbsp' + e['unit_nm'] + '</p>';
 		    contentStr += '<p><b>' + 'Month' + ':</b>&nbsp' + e['month'] + 
 		      '</p>';
@@ -64,6 +64,7 @@ function mapInitialization(reports) {
 		    var long = Number(e['longitude']);
 			var lat = Number(e['latitude']);
 			var latlng = new google.maps.LatLng(lat, long);
+			bounds.extend(latlng);
 			
 		    var marker = new google.maps.Marker({ // Set the marker
 		      position : latlng, // Position marker to coordinates
