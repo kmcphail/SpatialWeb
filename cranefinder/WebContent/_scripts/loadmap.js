@@ -23,7 +23,7 @@ function showAllReports() {
 	    url: 'HttpServlet',
 	    type: 'POST',
 	    data: { "tab_id": "1"},
-	    success: function(reports) { 
+	    success: function(reports) {
 	    	mapInitialization(reports);
 	    },
 	    error: function(xhr, status, error) {
@@ -34,22 +34,21 @@ function showAllReports() {
 
 
 function mapInitialization(reports) {
-	  var mapOptions = {
-	    mapTypeId : google.maps.MapTypeId.ROADMAP, // Set the type of Map
-	  };
+	var mapOptions = {
+			mapTypeId : google.maps.MapTypeId.ROADMAP, // Set the type of Map
+	};
 	  
-	  // Render the map within the empty div
-	  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-	  var long = Number(e['longitude']);
-	  var lat = Number(e['latitude']);
-	  //Assign the icon variable
-	  var latlng = new google.maps.LatLng(lat, long);
-	    
-	  var bounds = new google.maps.LatLngBounds ();
-	  
+	// Render the map within the empty div
+	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	
+	//Assign the icon variable
+	
+	var bounds = new google.maps.LatLngBounds ();
+
 	  $.each(reports, function(i, e) {
 
 		    // Create the infoWindow content
+		  
 		    var contentStr = '<h4>Location Details</h4><hr>';
 		    
 		    //used the line below to test if the request type was coming through.
@@ -62,6 +61,10 @@ function mapInitialization(reports) {
 		      '</p>';
 
 		    // Create the marker
+		    var long = Number(e['longitude']);
+			var lat = Number(e['latitude']);
+			var latlng = new google.maps.LatLng(lat, long);
+			
 		    var marker = new google.maps.Marker({ // Set the marker
 		      position : latlng, // Position marker to coordinates
 		      //icon : icons[report_type].icon,
