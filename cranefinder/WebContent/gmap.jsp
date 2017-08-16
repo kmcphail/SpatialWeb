@@ -33,5 +33,23 @@
 <div id="map-canvas"></div>
 
 <script src="_scripts/loadmap.js"></script> 
+
+<script>
+function test_query_report() {
+		$.ajax({
+		    url: 'HttpServlet',
+		    type: 'POST',
+		    data: { "tab_id": "1","species":"wild"},
+		    success: function(data){ 
+		    	$.each(data, function(i, e) {
+		    		alert(JSON.stringify(e));
+		    	});
+		    },
+		    error: function(xhr, status, error) {
+			    alert("An AJAX error occured: " + status + "\nError: " + error);
+			  }
+		});
+	}
+	</script>
 </body>
 </html>

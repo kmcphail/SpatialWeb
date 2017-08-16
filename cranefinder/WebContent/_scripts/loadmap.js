@@ -53,7 +53,7 @@ function mapInitialization(reports) {
 		    
 		    //used the line below to test if the request type was coming through.
 		    //contentStr += '<p><b>' + icons[report_type].icon + '</b></p>';
-		    
+		    contentStr += '<p><b>' + 'Species' + ':</b>&nbsp' + e['species'] + '</p>';
 		    contentStr += '<p><b>' + 'Unit Name' + ':</b>&nbsp' + e['unit_nm'] + '</p>';
 		    contentStr += '<p><b>' + 'Month' + ':</b>&nbsp' + e['month'] + 
 		      '</p>';

@@ -89,12 +89,18 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		JSONArray list = new JSONArray();
 
 		DBUtility dbutil = new DBUtility();
-		
+		 
 		String sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm, "+
 				"st_X(ST_CENTROID(geom)) as longitude, st_y(ST_CENTROID(geom)) as latitude from public.rpt_cranes_in_pa "+ 
-				"Where species = 'WHCR' and Month = 3Order by geom <-> st_setsrid(st_makepoint(-90,45),4326) LIMIT 10";
-		 
-		ResultSet res = dbutil.queryDB(sql);
+				"Where species = 'SACR' and Month = 3 Order by geom <-> st_setsrid(st_makepoint(-121,42),4326) LIMIT 5";
+		/*
+		String species = request.getParameter("species");
+		if (species.equals(species.equalsIgnoreCase("SACR"))) {
+			String sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm, "+
+					"st_X(ST_CENTROID(geom)) as longitude, st_y(ST_CENTROID(geom)) as latitude from public.rpt_cranes_in_pa "+ 
+					"Where species = 'SACR' and Month = 3 Order by geom <-> st_setsrid(st_makepoint(-121,42),4326) LIMIT 5";
+		*/	
+			ResultSet res = dbutil.queryDB(sql);
 			while (res.next()) {
 				HashMap<String, String> m = new HashMap<String,String>();
 				m.put("month", res.getString("month"));
@@ -112,7 +118,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 	
 		response.getWriter().write(list.toString());
 	}
-	
+
 
 	public void main() throws JSONException {
 	}
