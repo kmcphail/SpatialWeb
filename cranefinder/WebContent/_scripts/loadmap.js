@@ -22,7 +22,7 @@ function showAllReports() {
 	  $.ajax({
 	    url: 'HttpServlet',
 	    type: 'POST',
-	    data: { "tab_id": "1"},
+	    data: { "tab_id": "1","species":"WHCR","month":"8"},
 	    success: function(reports) {
 	    	mapInitialization(reports);
 	    },
