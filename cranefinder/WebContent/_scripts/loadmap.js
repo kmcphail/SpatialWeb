@@ -64,6 +64,7 @@ function mapInitialization(reports) {
 		    var long = Number(e['longitude']);
 			var lat = Number(e['latitude']);
 			var latlng = new google.maps.LatLng(lat, long);
+			bounds.extend(latlng);
 			
 		    var marker = new google.maps.Marker({ // Set the marker
 		      position : latlng, // Position marker to coordinates
