@@ -79,11 +79,11 @@ public class DBUtility extends HttpServlet {
  	}
 	
 	public static void main(String[] args) throws SQLException {
-		
+		/*
 		String sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm, "+
 				"st_X(ST_CENTROID(geom)) as longitude, st_y(ST_CENTROID(geom)) as latitude from public.rpt_cranes_in_pa "+ 
 				"Where species = 'WHCR' and Month = 3Order by geom <-> st_setsrid(st_makepoint(-90,45),4326) LIMIT 10";
-
+		
 		// You can test the methods you created here
 		DBUtility util = new DBUtility();
 		
@@ -93,5 +93,6 @@ public class DBUtility extends HttpServlet {
 		while (res.next()) {
 			System.out.println(res.getString("longitude"));
 		}
+		*/
 	}
 }

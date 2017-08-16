@@ -99,9 +99,9 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 				HashMap<String, String> m = new HashMap<String,String>();
 				m.put("month", res.getString("month"));
 				m.put("species", res.getString("species"));			
-				m.put("max_observation", res.getString("max_observation"));
+				m.put("max_observed", res.getString("max_observed"));
 				m.put("avg_reports", res.getString("avg_reports"));
-				m.put("d_des_tp", res.getString("d_des_dp"));
+				m.put("d_des_tp", res.getString("d_des_tp"));
 				m.put("loc_nm", res.getString("loc_nm"));
 				m.put("unit_nm", res.getString("unit_nm"));
 				m.put("state_nm", res.getString("state_nm"));
