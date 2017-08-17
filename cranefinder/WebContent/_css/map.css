@@ -5,39 +5,14 @@ body {
   margin-top: 48px;
 }
 
-#map .ol-zoom {
-  font-size: 1.5em;
-}
-#map {
-  position: absolute;
+#map-canvas {
+    position: absolute;
   top: 48px;
   bottom: 0px;
   left: 0px; 
   right: 0px;
   z-index: 10;
 }
-
-/* TO DO: Fix zoom toolbar placement
-.ol-zoom,
-.ol-zoom-in {
-  top: 15px;
-  left: auto;
-  right: 5px;
-}
-.ol-zoom,
-.ol-zoom-out {
-  position: relative;
-  right: 5px;
-}
-
-.zoom-top-opened-sidebar { 
-  margin-top: 5px;
-  padding: 5px;
-}
-.zoom-top-collapsed {
-  margin-top: 60px;
-}
-*/
 
 .sidebar-collapsed{
   display:none;  
