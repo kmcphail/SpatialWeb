@@ -123,7 +123,6 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 					"st_X(ST_CENTROID(geom)) as longitude, st_y(ST_CENTROID(geom)) as latitude "+ 
 					"from public.rpt_cranes_in_pa where species = '"+ species + "' and month = "+ month +
 					" ORDER BY geom <-> st_setsrid(st_makepoint("+longitude+","+latitude+"), 4326) LIMIT "+ myCount;
-		System.out.println(sql);
 		
 		ResultSet res = dbutil.queryDB(sql);
 		while (res.next()) {
