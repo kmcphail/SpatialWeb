@@ -16,10 +16,7 @@
   <link href="_css/styles.css" rel="stylesheet" type="text/css">
   <link href="_css/map.css" rel="stylesheet" type="text/css">
   <!-- JavaScript -->
-  <!-- TO DO: Fix loadform.js
-  <script src="_scripts/loadform.js" type="text/javascript"></script>
-  -->
-  <!-- TO DO: Add loadmap.js -->
+  
   
   <!-- jQuery -->
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -28,6 +25,9 @@
   <!-- Bootstrap libraries -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <!-- Google Map JavaScript libraries-->
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB8Woz2WyIajSRO89Lk3pfpgZrqvjIpZe8&signed_in=true&libraries=places,visualization"></script>
   
   <!-- OpenLayers libraries -->
   <link href="https://openlayers.org/en/v4.2.0/css/ol.css" rel="stylesheet" type="text/css">
@@ -55,21 +55,20 @@
     <div class="mainheader-offset"></div>
     
     <!-- Map section -->
-    <div id="map"></div>
-	<script src="_scripts/map_OpenLayers.js" type="text/javascript"></script>    
+	<div id="map-canvas"></div> 
     
     <!-- Sidebar section -->
     <!-- TO DO: Fix panel collapse -->
     <div class="main-row">
       <div class="sidebar col-sm-4 col-md-3 sidebar-left pull-left">
-        <div class="panel-group sidebar-body" id="accordion-left">
+        <div class="panel-group sidebar-body pre-scrollable" id="accordion">
           
           <!-- Query Panel -->
           <!-- User submits their crane query here -->
           <div class="panel panel-default">
             <div class="panel-heading">
               <h2 class="panel-title">
-                <a data-toggle="collapse" href="#querypanel">Query</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#querypanel">Query</a>
                 <span class="pull-right slide-sidebar">
                   <i class="glyphicon glyphicon-chevron-left"></i>
                 </span>
@@ -82,8 +81,8 @@
                   <!-- Species input -->
                   <div class="list-group-item"><label>Species:</label>
                     <div>
-                      <label><input type="checkbox" value="sandhill">&nbsp;Sandhill Crane</label><br>
-                      <label><input type="checkbox" value="whooping">&nbsp;Whooping Crane</label>
+                      <label><input type="checkbox" value="SACR">&nbsp;Sandhill Crane</label><br>
+                      <label><input type="checkbox" value="WHCR">&nbsp;Whooping Crane</label>
                     </div>
                   </div>
 
@@ -158,7 +157,7 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h2 class="panel-title">
-                <a data-toggle="collapse" href="#details">Details</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#details">Details</a>
               </h2>
             </div>
             <div id="details" class="panel-collapse collapse in">
@@ -174,7 +173,7 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h2 class="panel-title">
-                <a data-toggle="collapse" href="#observations">Observations</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#observations">Observations</a>
               </h2>
             </div>
             <div id="observations" class="panel-collapse collapse in">
@@ -184,8 +183,8 @@
                   <!-- Species input -->
                   <div class="list-group-item"><label>Species:</label>
                     <div>
-                      <label><input type="checkbox" value="sandhill">&nbsp;Sandhill Crane</label><br>
-                      <label><input type="checkbox" value="whooping">&nbsp;Whooping Crane</label>
+                      <label><input type="checkbox" value="SACR">&nbsp;Sandhill Crane</label><br>
+                      <label><input type="checkbox" value="WHCR">&nbsp;Whooping Crane</label>
                     </div>
                   </div>
 
@@ -228,5 +227,9 @@
     </div>
     
   </div>
+  
+  <script src="_scripts/loadform.js" type="text/javascript"></script>
+  <script src="_scripts/loadmap.js" type="text/javascript"></script>
+  
 </body>
 </html> 
