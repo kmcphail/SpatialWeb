@@ -20,8 +20,8 @@ var months = {
 };
 
 function initialization() {
-	mapClear();
-	//showAllReports();
+	//mapClear();
+	showAllReports();
 	initAutocomplete();
 	
 }
