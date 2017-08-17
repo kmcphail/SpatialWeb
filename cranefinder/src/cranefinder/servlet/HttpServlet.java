@@ -103,19 +103,19 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		
 		//Getter for species - return either 'SACR' or 'WHCR'
 		//String species = request.getParameter("species");
-		String species = "SACR"; //FOR TESTING
+		String species = "WHCR"; //FOR TESTING
 		
 		//Getter for month - return integer month as string
 		//String month = request.getParameter("report_type");
-		String month = "8"; //FOR TESTING
+		String month = "4"; //FOR TESTING
 		
 		//Getter for How many locations to return - number
 		//String myCount = request.getParameter("myCount");
-		String myCount = "10";
+		String myCount = "25";
 		
 		//Getter for Lat & Long
 		//NEED TO BUILD
-		String longitude = "-121"; //FOR TESTING
+		String longitude = "-90"; //FOR TESTING
 		String latitude = "42"; //FOR TESTING
 		
 		// request report

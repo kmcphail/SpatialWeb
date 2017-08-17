@@ -3,8 +3,25 @@ var place;
 var autocomplete;
 var infowindow = new google.maps.InfoWindow();
 
+//months translator
+var months = {
+	'1':'January',
+	'2':'February',
+	'3':'March',
+	'4':'April',
+	'5':'May',
+	'6':'June',
+	'7':'July',
+	'8':'August',
+	'9':'September',
+	'10':'October',
+	'11':'November',
+	'12':'December'
+};
+
 function initialization() {
 	mapClear();
+	//showAllReports();
 	initAutocomplete();
 	
 }
@@ -44,34 +61,46 @@ function mapInitialization(reports) {
 	var bounds = new google.maps.LatLngBounds ();
 
 	  $.each(reports, function(i, e) {
+		  
+		  var month= months[e["month"]];
+		  if (e["species"]="SACR") {
+			  var species = "Sandhill crane"
+		  } 
+		  if (e["species"]="WHCR") {
+			  var species = "Whooping crane"
+		  }
+		  
+		  if (parseInt(e["max_observed"])>1){
+			  species +="s"
+		  }
 
 		    // Create the infoWindow content
 		  	//NOTE: align = "center" is not supported in HTML5, Use CSS
 		    var contentStr = '<h4 align = "center">'+ e['unit_nm']+'</h4><hr>';
-		    if (e['avg_reports'] < 10 ) {
-		    	contentStr += '<p align = "center">In '+'&nbsp' +e['month']+'&nbsp'+'it is unlikly to see'+ '&nbsp'+
+		    if (parseFloat(e["avg_reports"]) < 5 ) {
+		    	contentStr += '<h6 align = "center">In '+'&nbsp' +month+'&nbsp'+'it is rare to see'+ '&nbsp'+
 		    	//contentStr += '<p>' + 'It is rare to see' + '</p>';
-		    	 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
-		    	 e['species'] + '&nbsp' + 'here' + '</p>';
-		    	contentStr+= '<h6 align = "center">'+'If you plan to see cranes, contact the area to varify that<br/>'+
-		    	'the cranes are in the area and easy to see'+'</h6>';
+		    	 'as many as' + '&nbsp' + e["max_observed"]+ '&nbsp'+
+		    	 species + '&nbsp' + 'here' + '</h6>';
+		    	contentStr+= '<p align = "center">'+'If you plan to see cranes, contact the area to varify that<br/>'+
+		    	'the cranes are in the area and easy to see'+'</p>';
 		      }
-		    else if (10<=e['avg_reports'] && e['avg_reports'>=75]  ) {
-		    	contentStr += '<p>In '+'&nbsp' +e['month']+'&nbsp'+'it is possible to see'+ '&nbsp'+
+		    if (5<=parseFloat(e["avg_reports"]) && parseFloat(e["avg_reports"])<=25 ) {
+		    	contentStr += '<h6>In '+'&nbsp' +month+'&nbsp'+'it is likely to see'+ '&nbsp'+
 		    	//contentStr += '<p>' + 'It is  to see' + '</p>';
 		    	 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
-		    	 e['species'] + '&nbsp' + 'here' + '</p>';
-		    	contentStr+= '<h6 align = "center">'+'If you plan to see cranes, contact the area to varify that<br/>'+
-		    	'the cranes are in the area and easy to see'+'</h6>'
+		    	 species + '&nbsp' + 'here' + '</h6>';
+		    	contentStr+= '<p align = "center">'+'If you plan to see cranes, contact the area to varify that<br/>'+
+		    	'the cranes are in the area and easy to see'+'</p>'
 		      }
 		    
-		    else if (e['avg_reports'< 75]  ) {
-		    	contentStr += '<p>In '+'&nbsp' +e['month']+'&nbsp'+'it is highly likely to see'+ '&nbsp'+
+		    if (parseFloat(e['avg_reports'])> 25  ) {
+		    	contentStr += '<h6>In '+'&nbsp' +month+'&nbsp'+'it is highly likely to see'+ '&nbsp'+
 		    	//contentStr += '<p>' + 'It is  to see' + '</p>';
 		    	 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
-		    	 e['species'] + '&nbsp' + 'here' + '</p>';
-		    	contentStr+= '<h6 align = "center">'+'If you plan to see cranes, contact the area to varify that<br/>'+
-		    	'the cranes are in the area and easy to see'+'</h6>'
+		    	 species + '&nbsp' + 'here' + '</h6>';
+		    	contentStr+= '<p align = "center">'+'If you plan to see cranes, contact the area to varify that<br/>'+
+		    	'the cranes are in the area and easy to see'+'</p>'
 		      }
 		    
 		    //used the line below to test if the request type was coming through.
