@@ -48,17 +48,42 @@ function mapInitialization(reports) {
 	  $.each(reports, function(i, e) {
 
 		    // Create the infoWindow content
-		  
-		    var contentStr = '<h4>Location Details</h4><hr>';
+		  	//NOTE: align = "center" is not supported in HTML5, Use CSS
+		    var contentStr = '<h4 align = "center">'+ e['unit_nm']+'</h4><hr>';
+		    if (e['avg_reports'] < 10 ) {
+		    	contentStr += '<p align = "center">In '+'&nbsp' +e['month']+'&nbsp'+'it is unlikly to see'+ '&nbsp'+
+		    	//contentStr += '<p>' + 'It is rare to see' + '</p>';
+		    	 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
+		    	 e['species'] + '&nbsp' + 'here' + '</p>';
+		    	contentStr+= '<h6 align = "center">'+'If you plan to see cranes, contact the area to varify that<br/>'+
+		    	'the cranes are in the area and easy to see'+'</h6>';
+		      }
+		    else if (10<=e['avg_reports'] && e['avg_reports'>=75]  ) {
+		    	contentStr += '<p>In '+'&nbsp' +e['month']+'&nbsp'+'it is possible to see'+ '&nbsp'+
+		    	//contentStr += '<p>' + 'It is  to see' + '</p>';
+		    	 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
+		    	 e['species'] + '&nbsp' + 'here' + '</p>';
+		    	contentStr+= '<h6 align = "center">'+'If you plan to see cranes, contact the area to varify that<br/>'+
+		    	'the cranes are in the area and easy to see'+'</h6>'
+		      }
+		    
+		    else if (e['avg_reports'< 75]  ) {
+		    	contentStr += '<p>In '+'&nbsp' +e['month']+'&nbsp'+'it is highly likely to see'+ '&nbsp'+
+		    	//contentStr += '<p>' + 'It is  to see' + '</p>';
+		    	 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
+		    	 e['species'] + '&nbsp' + 'here' + '</p>';
+		    	contentStr+= '<h6 align = "center">'+'If you plan to see cranes, contact the area to varify that<br/>'+
+		    	'the cranes are in the area and easy to see'+'</h6>'
+		      }
 		    
 		    //used the line below to test if the request type was coming through.
 		    //contentStr += '<p><b>' + icons[report_type].icon + '</b></p>';
-		    contentStr += '<p><b>' + 'Species' + ':</b>&nbsp' + e['species'] + '</p>';
-		    contentStr += '<p><b>' + 'Unit Name' + ':</b>&nbsp' + e['unit_nm'] + '</p>';
-		    contentStr += '<p><b>' + 'Month' + ':</b>&nbsp' + e['month'] + 
-		      '</p>';
-		    contentStr += '<p><b>' + 'Max Observed' + ':</b>&nbsp' + e['max_observed'] + 
-		      '</p>';
+		    //contentStr += '<p><b>' + 'Species' + ':</b>&nbsp' + e['avg_reports'] + '</p>';
+		    //contentStr += '<p><b>' + 'Unit Name' + ':</b>&nbsp' + e['unit_nm'] + '</p>';
+		    //contentStr += '<p><b>' + 'Month' + ':</b>&nbsp' + e['month'] + 
+		     // '</p>';
+		    //contentStr += '<p><b>' + 'Max Observed' + ':</b>&nbsp' + e['max_observed'] + 
+		     // '</p>';
 
 		    // Create the marker
 		    var long = Number(e['longitude']);
