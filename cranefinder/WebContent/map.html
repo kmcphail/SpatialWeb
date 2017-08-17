@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Seth Frazier, Kirk McPhail, Dorn Moore">
+  <meta name="description" content="This page is designed to help users locate nearby areas where they can view crane species.">
+  <meta name="keywords" content="Crane finder, bird watching, bird search, locate species">
+  <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+  
+  <title>
+    Crane Finder App
+  </title>
+  
+  <!-- CSS -->
+  <link href="_css/styles.css" rel="stylesheet" type="text/css">
+  <link href="_css/map.css" rel="stylesheet" type="text/css">
+  <!-- JavaScript -->
+  
+  
+  <!-- jQuery -->
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  
+  <!-- Bootstrap libraries -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <!-- Google Map JavaScript libraries-->
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB8Woz2WyIajSRO89Lk3pfpgZrqvjIpZe8&signed_in=true&libraries=places,visualization"></script>
+  
+  </head>
+
+<body>
+  <div class="main-container">
+    
+    <!-- Navbar section -->
+    <div class="mainheader">
+      <div class="mainheader-inner">
+        <h1 class="mainheader-brand">Crane Finder App</h1>
+        <nav class="nav mainheader-nav">
+          <ul class="nav nav-tabs">
+            <li><a href="index.html" class="btn btn-sm btn-default">Home</a></li>
+            <li><a href="map.html" class="btn btn-sm btn-default">Map</a></li>
+            <li><a href="share.html" class="btn btn-sm btn-default">Your Story</a></li>
+            <li><a href="about.html" class="btn btn-sm btn-default">About</a></li>
+            <li><a href="contact.html" class="btn btn-sm btn-default">Contact Us</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="mainheader-offset"></div>
+    
+    <!-- Map section -->
+	<div id="map-canvas"></div> 
+    
+    <!-- Sidebar section -->
+    <!-- TO DO: Fix panel collapse -->
+    <div class="main-row">
+      <div class="sidebar col-sm-4 col-md-3 sidebar-left pull-left">
+        <div class="panel-group sidebar-body pre-scrollable" id="accordion">
+          
+          <!-- Query Panel -->
+          <!-- User submits their crane query here -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#query_report">Query</a>
+                <span class="pull-right slide-sidebar">
+                  <i class="glyphicon glyphicon-chevron-left"></i>
+                </span>
+              </h2>
+            </div>
+            <div id="query_report" class="panel-collapse collapse in">
+              <div class="panel-body list-group">
+                <form id="query_report_form">
+
+                  <!-- Species input -->
+                  <div class="list-group-item"><label>Species:</label>
+                  	<select name="species">
+                  		<option value="WHCR">Whooping cranes</option>
+                  		<option value="SACR">Sandhill cranes</option>
+                  	</select>
+                  </div>
+                
+                  <!-- Month input -->
+                  <div class="list-group-item"><label>Month:</label>
+                    <select name="month">
+                      <!-- TO DO: Set current month as default value -->
+                      <option value="1">January</option>
+                      <option value="2">February</option>
+                      <option value="3">March</option>
+                      <option value="4">April</option>
+                      <option value="5">May</option>
+                      <option value="6">June</option>
+                      <option value="7">July</option>
+                      <option value="8">August</option>
+                      <option value="9">September</option>
+                      <option value="10">October</option>
+                      <option value="11">November</option>
+                      <option value="12">December</option>
+                    </select>
+                  </div>
+                  
+                  <!-- Count records to return input -->
+                  <div class="list-group-item"><label>Number of locations to return:</label>
+                  	<select name="myCount">
+                  		<option value="10">10 sites</option>
+                  		<option value="20">20 sites</option>
+                  		<option value="50">50 sites</option>
+                  	</select>
+                  </div>
+                   
+
+                  <!-- Location type input -->
+                  <!-- 
+                  <div class="list-group-item"><label>Search by:</label>
+                    <select onchange="onSelectLocationType(this)" name="location_type">
+                      <option value="query_currloc">Current Location</option>
+                      <option value="query_addr">Address</option>
+                      <option value="query_latlng">Coordinates</option>
+                      <option value="query_stcnty">State/County</option>
+                    </select>
+                  </div>
+                   -->
+
+                  <!-- Location hidden input -->
+                  <!-- TO DO: Set hidden fields for each location type -->
+                  <!--  
+                  <div class="location_field_div" style="visibility: hidden">
+                    <label class="location_field_label"></label>
+                    <select class="location_field_select" name="location_field"></select>
+                  </div>
+                  -->
+
+                  
+                  <!-- TO DO: Set hidden county fields for each state -->
+
+                  <!-- Hidden fields
+                  <div id="input_addr" class="list-group-item" style="display:none;">
+                    <input id="autocomplete" placeholder="Address" name="query_address" class="list-group-item">
+                  </div>
+                  <div id="input_latlng" class="list-group-item" style="display:none;">
+                    <input placeholder="Latitude..." name="lat">
+                    <input placeholder="Longitude..." name="lng">
+                  </div>
+                  <div id="input_stcnty" class="list-group-item" style="display:none;">
+                    <select name="query_state" class="list-group-item">
+                      <option value="">State</option>
+                    </select>
+                    <select name="query_county" style="display:none;" class="list-group-item">
+                      <option value="">County</option>
+                    </select>
+                  </div>
+                  -->
+
+                  <button type="submit" class="btn btn-default" >
+                    <span class="glyphicon glyphicon-ok"></span> Find Cranes
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+        <!-- Details Panel -->
+        <!-- Field values from GeoJSON file displayed here on mouse-over -->
+        <!-- TO DO: Possible alternative to pop-up box -->
+        <!-- 
+		<div class="panel panel-default">
+          	<div class="panel-heading">
+            	<h2 class="panel-title">
+                	<a data-toggle="collapse" data-parent="#accordion" href="#details">Details</a>
+              	</h2>
+			</div>
+		<div id="details" class="panel-collapse collapse in">
+            <div class="panel-body">
+                
+				<div id="map_info">&nbsp;</div>
+            </div>
+		</div>
+		-->
+
+          
+          
+        </div>
+      </div>
+    </div>
+    
+    <!-- Collapsed sidebar -->
+    <div class="sidebar-collapsed sidebar-collapsed-left pull-left">
+      <i class="glyphicon glyphicon-chevron-right"></i>
+    </div>
+    
+  </div>
+  
+  <script src="_scripts/loadmap.js"></script>
+  <script src="_scripts/loadform.js"></script>
+  
+</body>
+</html> 
