@@ -124,9 +124,12 @@ div > h2 {
 }
 
 #map-canvas {
-  height:100%;
   position: absolute;
-  right:0;
+  top: 48px;
+  bottom: 0px;
+  left: 0px; 
+  right: 0px;
+  z-index: 10;
 }
 
 
