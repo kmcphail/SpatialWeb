@@ -42,8 +42,9 @@
           <ul class="nav nav-tabs">
             <li><a href="index.html" class="btn btn-sm btn-default">Home</a></li>
             <li><a href="map.html" class="btn btn-sm btn-default">Map</a></li>
+            <li><a href="share.html" class="btn btn-sm btn-default">Your Story</a></li>
             <li><a href="about.html" class="btn btn-sm btn-default">About</a></li>
-            <li><a href="contact.html" class="btn btn-sm btn-default">Contact</a></li>
+            <li><a href="contact.html" class="btn btn-sm btn-default">Contact Us</a></li>
           </ul>
         </nav>
       </div>
@@ -64,27 +65,27 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h2 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#querypanel">Query</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#query_report">Query</a>
                 <span class="pull-right slide-sidebar">
                   <i class="glyphicon glyphicon-chevron-left"></i>
                 </span>
               </h2>
             </div>
-            <div id="querypanel" class="panel-collapse collapse in">
+            <div id="query_report" class="panel-collapse collapse in">
               <div class="panel-body list-group">
-                <form id="qry_form">
+                <form id="query_report_form">
 
                   <!-- Species input -->
                   <div class="list-group-item"><label>Species:</label>
-                    <div>
-                      <label><input type="checkbox" value="SACR">&nbsp;Sandhill Crane</label><br>
-                      <label><input type="checkbox" value="WHCR">&nbsp;Whooping Crane</label>
-                    </div>
+                  	<select name="species">
+                  		<option value="WHCR">Whooping cranes</option>
+                  		<option value="SACR">Sandhill cranes</option>
+                  	</select>
                   </div>
-
+                
                   <!-- Month input -->
                   <div class="list-group-item"><label>Month:</label>
-                    <select id="month" name="month">
+                    <select name="month">
                       <!-- TO DO: Set current month as default value -->
                       <option value="1">January</option>
                       <option value="2">February</option>
@@ -100,8 +101,19 @@
                       <option value="12">December</option>
                     </select>
                   </div>
+                  
+                  <!-- Count records to return input -->
+                  <div class="list-group-item"><label>Number of locations to return:</label>
+                  	<select name="myCount">
+                  		<option value="10">10 sites</option>
+                  		<option value="20">20 sites</option>
+                  		<option value="50">50 sites</option>
+                  	</select>
+                  </div>
+                   
 
                   <!-- Location type input -->
+                  <!-- 
                   <div class="list-group-item"><label>Search by:</label>
                     <select onchange="onSelectLocationType(this)" name="location_type">
                       <option value="query_currloc">Current Location</option>
@@ -110,13 +122,16 @@
                       <option value="query_stcnty">State/County</option>
                     </select>
                   </div>
+                   -->
 
                   <!-- Location hidden input -->
                   <!-- TO DO: Set hidden fields for each location type -->
+                  <!--  
                   <div class="location_field_div" style="visibility: hidden">
                     <label class="location_field_label"></label>
                     <select class="location_field_select" name="location_field"></select>
                   </div>
+                  -->
 
                   
                   <!-- TO DO: Set hidden county fields for each state -->
@@ -139,79 +154,33 @@
                   </div>
                   -->
 
-                  <button type="submit" class="btn btn-default" id="query_submit_btn">
-                    <span class="glyphicon glyphicon-ok"></span>
+                  <button type="submit" class="btn btn-default" >
+                    <span class="glyphicon glyphicon-ok"></span> Find Cranes
                   </button>
                 </form>
               </div>
             </div>
           </div>
           
-          <!-- Details Panel -->
-          <!-- Field values from GeoJSON file displayed here on mouse-over -->
-          <!-- TO DO: Possible alternative to pop-up box -->
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#details">Details</a>
-              </h2>
+        <!-- Details Panel -->
+        <!-- Field values from GeoJSON file displayed here on mouse-over -->
+        <!-- TO DO: Possible alternative to pop-up box -->
+        <!-- 
+		<div class="panel panel-default">
+          	<div class="panel-heading">
+            	<h2 class="panel-title">
+                	<a data-toggle="collapse" data-parent="#accordion" href="#details">Details</a>
+              	</h2>
+			</div>
+		<div id="details" class="panel-collapse collapse in">
+            <div class="panel-body">
+                
+				<div id="map_info">&nbsp;</div>
             </div>
-            <div id="details" class="panel-collapse collapse in">
-              <div class="panel-body">
-                <!-- OpenLayers example displays country names -->
-                <div id="map_info">&nbsp;</div>
-              </div>
-            </div>
-          </div>
+		</div>
+		-->
+
           
-          <!-- Observations Panel -->
-          <!-- User submits their crane observations here -->
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#observations">Observations</a>
-              </h2>
-            </div>
-            <div id="observations" class="panel-collapse collapse in">
-              <div class="panel-body list-group">
-                <form id="obs_form">
-
-                  <!-- Species input -->
-                  <div class="list-group-item"><label>Species:</label>
-                    <div>
-                      <label><input type="checkbox" value="SACR">&nbsp;Sandhill Crane</label><br>
-                      <label><input type="checkbox" value="WHCR">&nbsp;Whooping Crane</label>
-                    </div>
-                  </div>
-
-                  <!-- Month input -->
-                  <div class="list-group-item"><label>Month:</label>
-                    <select id="month" name="month">
-                      <!-- TO DO: Set current month as default value -->
-                      <option value="January">January</option>
-                      <option value="February">February</option>
-                      <option value="March">March</option>
-                      <option value="April">April</option>
-                      <option value="May">May</option>
-                      <option value="June">June</option>
-                      <option value="July">July</option>
-                      <option value="August">August</option>
-                      <option value="September">September</option>
-                      <option value="October">October</option>
-                      <option value="November">November</option>
-                      <option value="December">December</option>
-                    </select>
-                  </div>
-                  
-                  <!-- TO DO: Add relevant user inputs (number of individuals, activity, etc.) -->
-
-                  <button type="submit" class="btn btn-default" id="obs_submit_btn">
-                    <span class="glyphicon glyphicon-ok"></span>
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
           
         </div>
       </div>
@@ -225,7 +194,7 @@
   </div>
   
   <script src="_scripts/loadmap.js"></script>
-  <script src="_scripts/loadmap.js"></script>
+  <script src="_scripts/loadform.js"></script>
   
 </body>
 </html> 

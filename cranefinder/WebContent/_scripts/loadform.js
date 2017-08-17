@@ -53,14 +53,11 @@ $(function(){
 // TO DO: Create current date function
 $(document).ready(function() {
   var date = new Date();
-  var month = date.getMonth();
-  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  
-  document.getElementById("month").innerHTML = months[month];
-  
-  //$("#months option:eq("+month+")").val("selected", true);
-  //$("#month").val("selected", true);
-});
+  //we need to send the integer value for the month to the query 
+  //So we add 1 to the index value returned by the getMonth() function
+  var month = date.getMonth()+1;
+  });
+
 
 
 
@@ -122,8 +119,8 @@ function queryProtectedAreas(event) {
 
 function submitQry(event) {
   event.preventDefault(); // Stop form from submitting normally
-	
-  var a = $("#qry_form").serializeArray();
+  
+  var a = $("#query_report_form").serializeArray();
   a.push({ name: "tab_id", value: "1" });
   a = a.filter(function(item){return item.value != '';});
   $.ajax({
@@ -139,5 +136,7 @@ function submitQry(event) {
   });
 }
 
-$("#qry_form").on("submit", submitQry);
-$("#obs_form").on("submit", submitObs);
+$("#query_report_form").on("submit", submitQry);
+
+
+

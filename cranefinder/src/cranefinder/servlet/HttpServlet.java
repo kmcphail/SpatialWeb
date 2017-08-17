@@ -93,36 +93,31 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		String sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm, "+
 				"st_X(ST_CENTROID(geom)) as longitude, st_y(ST_CENTROID(geom)) as latitude from public.rpt_cranes_in_pa "+ 
 				"Where species = 'SACR' and Month = 3 Order by geom <-> st_setsrid(st_makepoint(-121,42),4326) LIMIT 5";
-		
-		String species = request.getParameter("species");
-		if (species.equals(species.equalsIgnoreCase("SACR"))) {
-			String sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm, "+
-					"st_X(ST_CENTROID(geom)) as longitude, st_y(ST_CENTROID(geom)) as latitude from public.rpt_cranes_in_pa "+ 
-					"Where species = 'SACR' and Month = 3 Order by geom <-> st_setsrid(st_makepoint(-121,42),4326) LIMIT 5";
 		*/	
 		
 		//Getter for species - return either 'SACR' or 'WHCR'
-		//String species = request.getParameter("species");
-		String species = "WHCR"; //FOR TESTING
+		String species = request.getParameter("species");
+		//String species = "WHCR"; //FOR TESTING
 		
 		//Getter for month - return integer month as string
-		//String month = request.getParameter("report_type");
-		String month = "4"; //FOR TESTING
+		String month = request.getParameter("month");
 		
 		//Getter for How many locations to return - number
-		//String myCount = request.getParameter("myCount");
-		String myCount = "25";
+		String myCount = request.getParameter("myCount");
+		//String myCount = "25";
 		
 		//Getter for Lat & Long
 		//NEED TO BUILD
-		String longitude = "-90"; //FOR TESTING
-		String latitude = "42"; //FOR TESTING
+		String longitude = "-100"; //FOR TESTING
+		String latitude = "40"; //FOR TESTING
 		
 		// request report
 		String sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm," + 
 					"st_X(ST_CENTROID(geom)) as longitude, st_y(ST_CENTROID(geom)) as latitude "+ 
 					"from public.rpt_cranes_in_pa where species = '"+ species + "' and month = "+ month +
 					" ORDER BY geom <-> st_setsrid(st_makepoint("+longitude+","+latitude+"), 4326) LIMIT "+ myCount;
+		
+		System.out.println(sql);
 		
 		ResultSet res = dbutil.queryDB(sql);
 		while (res.next()) {

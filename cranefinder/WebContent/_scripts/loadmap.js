@@ -3,7 +3,7 @@ var place;
 var autocomplete;
 var infowindow = new google.maps.InfoWindow();
 
-//months translator
+//months translator dictionary
 var months = {
 	'1':'January',
 	'2':'February',
@@ -20,8 +20,8 @@ var months = {
 };
 
 function initialization() {
-	//mapClear();
-	showAllReports();
+	mapClear();
+	//showAllReports();
 	initAutocomplete();
 	
 }
@@ -37,7 +37,7 @@ function showAllReports() {
 	  $.ajax({
 	    url: 'HttpServlet',
 	    type: 'POST',
-	    data: { "tab_id": "1","species":"WHCR","month":"8"},
+	    data: { "tab_id": "1","species":"WHCR","month":"1","myCount":"20"},
 	    success: function(reports) {
 	    	mapInitialization(reports);
 	    },
@@ -56,87 +56,86 @@ function mapInitialization(reports) {
 	// Render the map within the empty div
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 	
-	//Assign the icon variable
-	
+	//CREATE THE bounds
 	var bounds = new google.maps.LatLngBounds ();
 
-	  $.each(reports, function(i, e) {
-		  
-		  var month= months[e["month"]];
-		  if (e["species"]="SACR") {
-			  var species = "Sandhill crane"
-		  } 
-		  if (e["species"]="WHCR") {
-			  var species = "Whooping crane"
-		  }
-		  
-		  if (parseInt(e["max_observed"])>1){
-			  species +="s"
-		  }
+  $.each(reports, function(i, e) {
+	  // Create the infoWindow content 
+	  
+	  //Get the Integer value for the month and populate string month
+	  var month= months[e["month"]];
+	  
+	  //Change the displayed name for the species
+	  if (e["species"]="SACR") {
+		  var species = "Sandhill crane"
+	  } 
+	  if (e["species"]="WHCR") {
+		  var species = "Whooping crane"
+	  }
+	  //Make species name plural if you see more than 1
+	  if (parseInt(e["max_observed"])>1){
+		  species +="s"
+	  }
 
-		    // Create the infoWindow content
-		  	//NOTE: align = "center" is not supported in HTML5, Use CSS
-		    var contentStr = '<h4 align = "center">'+ e['unit_nm']+'</h4><hr>';
-		    if (parseFloat(e["avg_reports"]) < 5 ) {
-		    	contentStr += '<h6 align = "center">In '+'&nbsp' +month+'&nbsp'+'it is rare to see'+ '&nbsp'+
-		    	//contentStr += '<p>' + 'It is rare to see' + '</p>';
-		    	 'as many as' + '&nbsp' + e["max_observed"]+ '&nbsp'+
-		    	 species + '&nbsp' + 'here' + '</h6>';
-		    	contentStr+= '<p align = "center">'+'If you plan to see cranes, contact the area to varify that<br/>'+
-		    	'the cranes are in the area and easy to see'+'</p>';
-		      }
-		    if (5<=parseFloat(e["avg_reports"]) && parseFloat(e["avg_reports"])<=25 ) {
-		    	contentStr += '<h6>In '+'&nbsp' +month+'&nbsp'+'it is likely to see'+ '&nbsp'+
-		    	//contentStr += '<p>' + 'It is  to see' + '</p>';
-		    	 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
-		    	 species + '&nbsp' + 'here' + '</h6>';
-		    	contentStr+= '<p align = "center">'+'If you plan to see cranes, contact the area to varify that<br/>'+
-		    	'the cranes are in the area and easy to see'+'</p>'
-		      }
-		    
-		    if (parseFloat(e['avg_reports'])> 25  ) {
-		    	contentStr += '<h6>In '+'&nbsp' +month+'&nbsp'+'it is highly likely to see'+ '&nbsp'+
-		    	//contentStr += '<p>' + 'It is  to see' + '</p>';
-		    	 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
-		    	 species + '&nbsp' + 'here' + '</h6>';
-		    	contentStr+= '<p align = "center">'+'If you plan to see cranes, contact the area to varify that<br/>'+
-		    	'the cranes are in the area and easy to see'+'</p>'
-		      }
-		    
-		    //used the line below to test if the request type was coming through.
-		    //contentStr += '<p><b>' + icons[report_type].icon + '</b></p>';
-		    //contentStr += '<p><b>' + 'Species' + ':</b>&nbsp' + e['avg_reports'] + '</p>';
-		    //contentStr += '<p><b>' + 'Unit Name' + ':</b>&nbsp' + e['unit_nm'] + '</p>';
-		    //contentStr += '<p><b>' + 'Month' + ':</b>&nbsp' + e['month'] + 
-		     // '</p>';
-		    //contentStr += '<p><b>' + 'Max Observed' + ':</b>&nbsp' + e['max_observed'] + 
-		     // '</p>';
+	// Create the infoWindow Output
+	//NOTE: align = "center" is not supported in HTML5, Use CSS
+	
+	//Protected Area Name
+	var contentStr = '<h4>'+ e['unit_nm']+'</h4><hr>';
+	//Where sightings are Rare
+	if (parseFloat(e["avg_reports"]) < 5 ) {
+		contentStr += '<h6>In '+'&nbsp' +month+'&nbsp'+'it is rare to see'+ '&nbsp'+
+		//contentStr += '<p>' + 'It is rare to see' + '</p>';
+		 'as many as' + '&nbsp' + e["max_observed"]+ '&nbsp'+
+		 species + '&nbsp' + 'here' + '</h6>';
+		contentStr+= '<p>'+'If you plan to see cranes, contact the area to varify that<br/>'+
+		'the cranes are in the area and easy to see'+'</p>';
+	  }
+	//Where sigtings are likely
+	if (5<=parseFloat(e["avg_reports"]) && parseFloat(e["avg_reports"])<=25 ) {
+		contentStr += '<h6>In '+'&nbsp' +month+'&nbsp'+'it is likely to see'+ '&nbsp'+
+		//contentStr += '<p>' + 'It is to see' + '</p>';
+		 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
+		 species + '&nbsp' + 'here' + '</h6>';
+		contentStr+= '<p>'+'If you plan to see cranes, contact the area to varify that<br/>'+
+		'the cranes are in the area and easy to see'+'</p>'
+	  }
+	//Where sightins are very likely
+	if (parseFloat(e['avg_reports'])> 25  ) {
+		contentStr += '<h6>In '+'&nbsp' +month+'&nbsp'+'it is highly likely to see'+ '&nbsp'+
+		//contentStr += '<p>' + 'It is  to see' + '</p>';
+		 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
+		 species + '&nbsp' + 'here' + '</h6>';
+		contentStr+= '<p>'+'If you plan to see cranes, contact the area to varify that<br/>'+
+		'the cranes are in the area and easy to see'+'</p>'
+	  }
+	
+	// Create the marker
+	var long = Number(e['longitude']);
+	var lat = Number(e['latitude']);
+	var latlng = new google.maps.LatLng(lat, long);
+	//update the bounds
+	bounds.extend(latlng);
+	
+	var marker = new google.maps.Marker({ // Set the marker
+	  position : latlng, // Position marker to coordinates
+	  //icon : icons[report_type].icon,
+	  map : map, // assign the marker to our map variable
+	  customInfo: contentStr,
+	});
+	
+	// Add a Click Listener to the marker
+	google.maps.event.addListener(marker, 'click', function() { 
+	  // use 'customInfo' to customize infoWindow
+	  infowindow.setContent(marker['customInfo']);
+	  infowindow.open(map, marker); // Open InfoWindow
+	});
+	    
+  });
+  //Reposition the map and zoom level
+  map.fitBounds (bounds);
 
-		    // Create the marker
-		    var long = Number(e['longitude']);
-			var lat = Number(e['latitude']);
-			var latlng = new google.maps.LatLng(lat, long);
-			bounds.extend(latlng);
-			
-		    var marker = new google.maps.Marker({ // Set the marker
-		      position : latlng, // Position marker to coordinates
-		      //icon : icons[report_type].icon,
-		      map : map, // assign the marker to our map variable
-		      customInfo: contentStr,
-		    });
-		    
-		    // Add a Click Listener to the marker
-		    google.maps.event.addListener(marker, 'click', function() { 
-		      // use 'customInfo' to customize infoWindow
-		      infowindow.setContent(marker['customInfo']);
-		      infowindow.open(map, marker); // Open InfoWindow
-		    });
-		    
-		  });
-		  
-		  map.fitBounds (bounds);
-
-		}
+}
 
 function initAutocomplete() {
 	  // Create the autocomplete object
