@@ -65,7 +65,7 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h2 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#query_report">Query</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#query_report">Find Cranes Near You</a>
                 <span class="pull-right slide-sidebar">
                   <i class="glyphicon glyphicon-chevron-left"></i>
                 </span>
@@ -73,7 +73,15 @@
             </div>
             <div id="query_report" class="panel-collapse collapse in">
               <div class="panel-body list-group">
+              <p>Start with providing an address or location where to search from.<br/>
+              Then choose your species, the month when you'll be looking, and how many locations to return.</p>
                 <form id="query_report_form">
+                
+                <!-- Location type input -->
+                <!-- Using Google autocomplete to select location -->
+               	<div class="list-group-item"><label>Place or Address:</label>
+                	<input id="autocomplete" placeholder="Address" >
+             	 </div>
 
                   <!-- Species input -->
                   <div class="list-group-item"><label>Species:</label>
@@ -110,13 +118,7 @@
                   		<option value="50">50 sites</option>
                   	</select>
                   </div>
-                   
 
-                  <!-- Location type input -->
-                  <!-- Using Google autocomplete to select location -->
-               <div><label>Address:</label>
-                <input id="autocomplete" placeholder="Address" >
-              </div>
                   <!-- 
                   <div class="list-group-item"><label>Search by:</label>
                     <select onchange="onSelectLocationType(this)" name="location_type">

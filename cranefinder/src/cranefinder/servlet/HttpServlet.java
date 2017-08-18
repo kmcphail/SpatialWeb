@@ -84,7 +84,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 			response) throws SQLException, IOException {
 		DBUtility dbutil = new DBUtility();		
 		String sql;
-		
+		System.out.println("Getting a Story Submission");
 		//create your Story
 				int user_id = 0;
 				String fname = request.getParameter("fname");
@@ -93,9 +93,12 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 				String month = request.getParameter("omonth");
 				String year = request.getParameter("oyear");
 				String story = request.getParameter("story");
-				//String species = request.getParameter("species");
+				String species = request.getParameter("species");
 				String lon = request.getParameter("longitude");
 				String lat = request.getParameter("latitude");
+				System.out.println(lon+", "+lat);
+				String shareable = request.getParameter("shareable");
+				String addtolist = request.getParameter("addtolist");
 				//need to add getter for sharable and add to list
 				if (fname != null) {fname = "'" + fname + "'";}
 				if (lname != null) {lname = "'" + lname + "'";}
@@ -103,24 +106,20 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 				if (month != null) {month = "'"+ month+"'";}
 				if (year != null) {year = "'" + year + "'";}
 				if (story != null) {story = "'" + story + "'";}
-				//if (species !=null){species="'" + species+"'";}
+				if (species !=null){species="'" + species+"'";}
+				if (shareable !=null) { shareable="'yes'";}else {shareable="'no'";}
+				if (addtolist !=null) { addtolist="'yes'";}else {addtolist="'no'";}
+				
 				//accept null values for sharable and add to list?
 				
 				sql = "insert into public.vol_stories(fname, lname, email, omonth, oyear, story," +
-						" shareable, addtolist) values (" + fname + "," + lname + "," + email+"," +month+
-						","+year+", ST_GeomFromText('POINT(" + lon + " " + lat + ")', 4326)" + ")";
-				/*
-				sql = "insert into public.vol_stories(fname, lname, email, omonth, oyear, story," +
-						" shareable, addtolist) values ( test, tester, Test.test@msn.com, 9"+
-						",2012,'Yahoo', ST_GeomFromText('POINT(121 , 45)', 4326))";
-				*/
+						" shareable, addtolist, species, geom) values (" + fname + "," + lname + "," 
+						+ email+"," +month+ ","+year+","+story+","+shareable+","+addtolist+","+species+
+						", ST_GeomFromText('POINT(" + lon + " " + lat + ")', 4326))";
+				System.out.println(sql);
+			
 				dbutil.modifyDB(sql);
-				
-				// record user_id
-				ResultSet res_2 = dbutil.queryDB("select last_value from person_id_seq");
-				res_2.next();
-				user_id = res_2.getInt(1);
-				
+			
 				System.out.println("Success! story created.");
 	
 	// response that the report submission is successful

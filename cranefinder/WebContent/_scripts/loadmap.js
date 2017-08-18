@@ -19,12 +19,32 @@ var months = {
 	'12':'December'
 };
 
+//attempt to show current location
+var myloc = new google.maps.Marker({
+	clickable: false,
+	icon: new google.maps.MarkerImage('_assets/mm_20_red.png'),
+	shado: null,
+	map: map
+});
+
+//part of attempt to show user location
+function showMyLocation(){
+	if (navigator.geolocation) navigator.geolocation.getCurrentPosition(function(pos) {
+	    var me = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+	    myloc.setPosition(me);
+	}, function(error) {
+	    // ...
+	});
+}
+
 function initialization() {
 	mapClear();
 	//showAllReports();
 	initAutocomplete();
-	
+	showMyLocation();
 }
+
+
 
 function mapClear() {
 	map = new google.maps.Map(document.getElementById('map-canvas'),{
@@ -134,6 +154,7 @@ function mapInitialization(reports) {
   });
   //Reposition the map and zoom level
   map.fitBounds (bounds);
+  showMyLocation();
 
 }
 
