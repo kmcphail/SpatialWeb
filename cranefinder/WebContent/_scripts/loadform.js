@@ -117,7 +117,7 @@ function queryProtectedAreas(event) {
     
 }
 
-function createReport(event) {
+function queryReport(event) {
   event.preventDefault(); // Stop form from submitting normally
   
   var a = $("#query_report_form").serializeArray();
@@ -138,7 +138,7 @@ function createReport(event) {
   });
 }
 
-$("#query_report_form").on("submit", createReport);
+$("#query_report_form").on("submit", queryReport);
 
 function createReport(event){
 	event.preventDefault();// // stop form from submitting normally
