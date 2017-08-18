@@ -58,7 +58,7 @@
     <!-- TO DO: Fix panel collapse -->
     <div class="main-row">
       <div class="sidebar col-sm-4 col-md-3 sidebar-left pull-left">
-        <div class="panel-group sidebar-body pre-scrollable" id="accordion">
+        <div class="panel-group sidebar-body pre-scrollable">
                     
           </div>
           <!-- Story Panel -->
@@ -66,44 +66,64 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h2 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#observations">Observations</a>
+                <a data-toggle="collapse" href="#observations">Observations</a>
               </h2>
             </div>
             <div id="observations" class="panel-collapse collapse in">
               <div class="panel-body list-group">
                 <form id="obs_form">
-
-                  <!-- Species input -->
-                  <div class="list-group-item"><label>Species:</label>
-                    <div>
-                      <label><input type="checkbox" value="SACR">&nbsp;Sandhill Crane</label><br>
-                      <label><input type="checkbox" value="WHCR">&nbsp;Whooping Crane</label>
+                
+                  <!-- Location input -->
+                    <div><label>Address:</label><br>
+                      <input id="autocomplete" placeholder="Address">
                     </div>
-                  </div>
 
-                  <!-- Month input -->
-                  <div class="list-group-item"><label>Month:</label>
-                    <select id="month" name="month">
-                      <!-- TO DO: Set current month as default value -->
-                      <option value="1">January</option>
-                      <option value="2">February</option>
-                      <option value="3">March</option>
-                      <option value="4">April</option>
-                      <option value="5">May</option>
-                      <option value="6">June</option>
-                      <option value="7">July</option>
-                      <option value="8">August</option>
-                      <option value="9">September</option>
-                      <option value="10">October</option>
-                      <option value="11">November</option>
-                      <option value="12">December</option>
-                    </select>
+                  <!-- User information input -->
+                  <div class="list-group-item"><label>Tell us more about you:</label><br>
+                  	  <input class="form-control" placeholder="First Name" name="fname"><br>
+                  	  <input class="form-control" placeholder="Last Name" name="lname"><br>
+                  	  <input class="form-control" type="email" placeholder="Email" name="email"><br>
+                  </div>
+                  
+                  <!-- Story input -->
+                  <div class="list-group-item"><label>Tell us your story:</label><br>
+                  	<textarea class="form-control" rows="6" name="story"></textarea>
+                  </div>
+                  
+                  <!-- Crane information input -->
+                  <div class="list-group-item"><label>Tell us a little bit more:</label><br>
+	                <!-- Species input -->
+	                <div><label><em>Species</em></label><br>
+	                  <label><input type="checkbox" value="SACR">&nbsp;Sandhill Crane</label><br>
+	                  <label><input type="checkbox" value="WHCR">&nbsp;Whooping Crane</label>
+	                </div>
+	
+                  	<!-- Month input -->
+                   	<div><label><em>Month</em></label><br>
+                      <select class="form-control" id="month" name="month">
+                      	<!-- TO DO: Set current month as default value -->
+                        <option value="1">January</option>
+                      	<option value="2">February</option>
+                      	<option value="3">March</option>
+                      	<option value="4">April</option>
+                      	<option value="5">May</option>
+                      	<option value="6">June</option>
+                      	<option value="7">July</option>
+                      	<option value="8">August</option>
+                      	<option value="9">September</option>
+                      	<option value="10">October</option>
+                      	<option value="11">November</option>
+                      	<option value="12">December</option>
+                      </select>
+                    </div>
+                    
+                    
                   </div>
                   
                   <!-- TO DO: Add relevant user inputs (number of individuals, activity, etc.) -->
 
                   <button type="submit" class="btn btn-default" id="obs_submit_btn">
-                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="glyphicon glyphicon-ok"></span>&nbsp;Share
                   </button>
                 </form>
               </div>
@@ -122,7 +142,7 @@
   </div>
   
   <script src="_scripts/loadmap.js"></script>
-  <script src="_scripts/loadmap.js"></script>
+  <script src="_scripts/loadform.js"></script>
   
 </body>
 </html> 
