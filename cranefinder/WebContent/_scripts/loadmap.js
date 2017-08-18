@@ -63,18 +63,18 @@ function mapInitialization(reports) {
 	  // Create the infoWindow content 
 	  
 	  //Get the Integer value for the month and populate string month
-	  var month= months[e["month"]];
+	  var r_month= months[e["month"]];
 	  
 	  //Change the displayed name for the species
-	  if (e["species"]="SACR") {
-		  var species = "Sandhill crane"
+	  if (e["species"]=="SACR") {
+		  var r_species = "Sandhill crane"
 	  } 
-	  if (e["species"]="WHCR") {
-		  var species = "Whooping crane"
+	  if (e["species"]=="WHCR") {
+		  var r_species = "Whooping crane"
 	  }
 	  //Make species name plural if you see more than 1
 	  if (parseInt(e["max_observed"])>1){
-		  species +="s"
+		  r_species +="s"
 	  }
 
 	// Create the infoWindow Output
@@ -84,28 +84,28 @@ function mapInitialization(reports) {
 	var contentStr = '<h4>'+ e['unit_nm']+'</h4><hr>';
 	//Where sightings are Rare
 	if (parseFloat(e["avg_reports"]) < 5 ) {
-		contentStr += '<h6>In '+'&nbsp' +month+'&nbsp'+'it is rare to see'+ '&nbsp'+
+		contentStr += '<h6>In '+'&nbsp' +r_month+'&nbsp'+'it is rare to see'+ '&nbsp'+
 		//contentStr += '<p>' + 'It is rare to see' + '</p>';
 		 'as many as' + '&nbsp' + e["max_observed"]+ '&nbsp'+
-		 species + '&nbsp' + 'here' + '</h6>';
+		 r_species + '&nbsp' + 'here' + '</h6>';
 		contentStr+= '<p>'+'If you plan to see cranes, contact the area to varify that<br/>'+
 		'the cranes are in the area and easy to see'+'</p>';
 	  }
 	//Where sigtings are likely
 	if (5<=parseFloat(e["avg_reports"]) && parseFloat(e["avg_reports"])<=25 ) {
-		contentStr += '<h6>In '+'&nbsp' +month+'&nbsp'+'it is likely to see'+ '&nbsp'+
+		contentStr += '<h6>In '+'&nbsp' +r_month+'&nbsp'+'it is likely to see'+ '&nbsp'+
 		//contentStr += '<p>' + 'It is to see' + '</p>';
 		 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
-		 species + '&nbsp' + 'here' + '</h6>';
+		 r_species + '&nbsp' + 'here' + '</h6>';
 		contentStr+= '<p>'+'If you plan to see cranes, contact the area to varify that<br/>'+
 		'the cranes are in the area and easy to see'+'</p>'
 	  }
 	//Where sightins are very likely
 	if (parseFloat(e['avg_reports'])> 25  ) {
-		contentStr += '<h6>In '+'&nbsp' +month+'&nbsp'+'it is highly likely to see'+ '&nbsp'+
+		contentStr += '<h6>In '+'&nbsp' +r_month+'&nbsp'+'it is highly likely to see'+ '&nbsp'+
 		//contentStr += '<p>' + 'It is  to see' + '</p>';
 		 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
-		 species + '&nbsp' + 'here' + '</h6>';
+		 r_species + '&nbsp' + 'here' + '</h6>';
 		contentStr+= '<p>'+'If you plan to see cranes, contact the area to varify that<br/>'+
 		'the cranes are in the area and easy to see'+'</p>'
 	  }
