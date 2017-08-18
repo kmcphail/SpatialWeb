@@ -66,64 +66,81 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h2 class="panel-title">
-                <a data-toggle="collapse" href="#observations">Observations</a>
+                <a data-toggle="collapse" href="#observations">Tell Us Your Story of North America's Cranes</a>
               </h2>
             </div>
             <div id="observations" class="panel-collapse collapse in">
               <div class="panel-body list-group">
-                <form id="obs_form">
+                <form id="create_report_form">
                 
-                  <!-- Location input -->
-                    <div><label>Location of Sighting:</label><br>
-                    <label>Address:</label><br>
-                      <input id="autocomplete" placeholder="Address">
-                    </div>
+                  
 
                   <!-- User information input -->
-                  <div class="list-group-item"><label>Tell us more about you:</label><br>
-                  	  <input class="form-control" placeholder="First Name" name="fname"><br>
-                  	  <input class="form-control" placeholder="Last Name" name="lname"><br>
-                  	  <input class="form-control" type="email" placeholder="Email" name="email"><br>
+                  <div class="form-group"><label>Tell us more about you:</label><br>
+                  	  <input class="form-control" placeholder="First Name" name="fname">
+                  	  <input class="form-control" placeholder="Last Name" name="lname">
+                  	  <input class="form-control" type="email" placeholder="Email" name="email">
+                  	  <label>
+				          <input type="checkbox" name="addtolist"> Sign me up to receive periodic emails from the <br/>International Crane Foundation.
+				      </label>
                   </div>
                   
+                           
                   <!-- Story input -->
                   <div class="list-group-item"><label>Tell us your story:</label><br>
                   	<textarea class="form-control" rows="6" name="story"></textarea>
+                  	<label>
+				          <input type="checkbox" name="shareable"> Please share my story with other visitors.
+				      </label>
                   </div>
                   
                   <!-- Crane information input -->
                   <div class="list-group-item"><label>Tell us a little bit more:</label><br>
-	                <!-- Species input -->
-	                <div><label><em>Species</em></label><br>
-	                  <label><input type="checkbox" value="SACR">&nbsp;Sandhill Crane</label><br>
-	                  <label><input type="checkbox" value="WHCR">&nbsp;Whooping Crane</label>
-	                </div>
+	                
+	                <!-- Location input -->
+                    <div class="list-group-item"><label>Where were you?</label>
+                      <input id="autocomplete" placeholder="Place or Address">
+                    </div>
+                   
+                    <!-- Species input -->
+	               <div class="list-group-item">
+	               <label><em>Which species did you see</em></label>
+	               	<select class="form-control" id = "species" name="species">
+	                  <option value="SACR">Sandhill Crane</option>
+	                  <option value="WHCR">Whooping Crane</option>
+	                  <option value="BOTH">Both Species</option>
+	                </select>
+	               </div>
 	
                   	<!-- Month input -->
-                   	<div><label><em>Month</em></label><br>
-                      <select class="form-control" id="month" name="month">
-                      	<!-- TO DO: Set current month as default value -->
-                        <option value="1">January</option>
-                      	<option value="2">February</option>
-                      	<option value="3">March</option>
-                      	<option value="4">April</option>
-                      	<option value="5">May</option>
-                      	<option value="6">June</option>
-                      	<option value="7">July</option>
-                      	<option value="8">August</option>
-                      	<option value="9">September</option>
-                      	<option value="10">October</option>
-                      	<option value="11">November</option>
-                      	<option value="12">December</option>
-                      </select>
+                   	<p><b>When did you see them?</b></p>
+                   		<div class="form-inline">
+                   			<div class="form-group">
+			                   	
+			                      <select class="form-control" id="month" name="omonth">
+			                      	<!-- TO DO: Set current month as default value -->
+			                        <option value="1">January</option>
+			                      	<option value="2">February</option>
+			                      	<option value="3">March</option>
+			                      	<option value="4">April</option>
+			                      	<option value="5">May</option>
+			                      	<option value="6">June</option>
+			                      	<option value="7">July</option>
+			                      	<option value="8">August</option>
+			                      	<option value="9">September</option>
+			                      	<option value="10">October</option>
+			                      	<option value="11">November</option>
+			                      	<option value="12">December</option>
+			                      </select>
+			                 </div>
+			                 <div class="form-group">
+			                 <label class="sr-only" for="oyear" >Year</label>
+			                    <input class="number" name="oyear" placeholder="Year">
+			            	</div>
+                    	</div>
                     </div>
-                    
-                    
-                  </div>
-                  
-                  <!-- TO DO: Add relevant user inputs (number of individuals, activity, etc.) -->
 
-                  <button type="submit" class="btn btn-default" id="obs_submit_btn">
+                  <button type="submit" class="btn btn-default">
                     <span class="glyphicon glyphicon-ok"></span>&nbsp;Share
                   </button>
                 </form>
