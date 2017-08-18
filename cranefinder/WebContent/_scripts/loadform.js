@@ -117,11 +117,13 @@ function queryProtectedAreas(event) {
     
 }
 
-function submitQry(event) {
+function createReport(event) {
   event.preventDefault(); // Stop form from submitting normally
   
   var a = $("#query_report_form").serializeArray();
   a.push({ name: "tab_id", value: "1" });
+  a.push({name: "longitude", value: place.geometry.location.lng()});
+  a.push({name: "latitude", value: place.geometry.location.lat()});
   a = a.filter(function(item){return item.value != '';});
   $.ajax({
     url: 'HttpServlet',
@@ -136,7 +138,34 @@ function submitQry(event) {
   });
 }
 
-$("#query_report_form").on("submit", submitQry);
+$("#query_report_form").on("submit", createReport);
 
+function createReport(event){
+	event.preventDefault();// // stop form from submitting normally
+	//create variable and assign as a serialized array
+	var a = $("#create_report_form").serializeArray();
+	a.push({name: "tab_id", value: "0"});//push the items to make sure create a report is ran in the servlett
+	// push to a the long and lat of the location selected by user
+	a.push({name: "longitude", value: place.geometry.location.lng()});
+	a.push({name: "latitude", value: place.geometry.location.lat()}); 
+	a = a.filter(function(item){return item.value !='';}); //filter out items that do not have values
+	$.ajax({//ajax command to get data together
+		url: 'HttpServlet',
+		type: 'POST',
+		data: a,
+		success: function (reports){
+			alert("The Report is successfully submitted!");
+			//mapInitialiazion(reports); 
+			//reset the form
+			resetForm();
+			
+		},
+		error: function(xhr, status, error){
+			alert("Status: " + status+"\nError: "+error);
+		}
+	});
+}
+
+$("#create_report_form").on("submit",createReport);
 
 

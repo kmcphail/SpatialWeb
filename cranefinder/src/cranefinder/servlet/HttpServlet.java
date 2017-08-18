@@ -82,12 +82,62 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 	
 	private void createReport(HttpServletRequest request, HttpServletResponse 
 			response) throws SQLException, IOException {
-	}
+		DBUtility dbutil = new DBUtility();		
+		String sql;
+		
+		//create your Story
+				int user_id = 0;
+				String fname = request.getParameter("fname");
+				String lname = request.getParameter("lname");
+				String email = request.getParameter("email");
+				String month = request.getParameter("omonth");
+				String year = request.getParameter("oyear");
+				String story = request.getParameter("story");
+				//String species = request.getParameter("species");
+				String lon = request.getParameter("longitude");
+				String lat = request.getParameter("latitude");
+				//need to add getter for sharable and add to list
+				if (fname != null) {fname = "'" + fname + "'";}
+				if (lname != null) {lname = "'" + lname + "'";}
+				if (email != null) {email = "'" + email + "'";}
+				if (month != null) {month = "'"+ month+"'";}
+				if (year != null) {year = "'" + year + "'";}
+				if (story != null) {story = "'" + story + "'";}
+				//if (species !=null){species="'" + species+"'";}
+				//accept null values for sharable and add to list?
+				
+				sql = "insert into public.vol_stories(fname, lname, email, omonth, oyear, story," +
+						" shareable, addtolist) values (" + fname + "," + lname + "," + email+"," +month+
+						","+year+", ST_GeomFromText('POINT(" + lon + " " + lat + ")', 4326)" + ")";
+				/*
+				sql = "insert into public.vol_stories(fname, lname, email, omonth, oyear, story," +
+						" shareable, addtolist) values ( test, tester, Test.test@msn.com, 9"+
+						",2012,'Yahoo', ST_GeomFromText('POINT(121 , 45)', 4326))";
+				*/
+				dbutil.modifyDB(sql);
+				
+				// record user_id
+				ResultSet res_2 = dbutil.queryDB("select last_value from person_id_seq");
+				res_2.next();
+				user_id = res_2.getInt(1);
+				
+				System.out.println("Success! story created.");
+	
+	// response that the report submission is successful
+			JSONObject data = new JSONObject();
+			try {
+				data.put("status", "success");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}	
+			response.getWriter().write(data.toString());
+			
+		}
 
 	private void queryReport(HttpServletRequest request, HttpServletResponse 
 			response) throws JSONException, SQLException, IOException {
 		JSONArray list = new JSONArray();
-
+		String sql;
 		DBUtility dbutil = new DBUtility();
 		/* 
 		String sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm, "+
@@ -108,11 +158,13 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		
 		//Getter for Lat & Long
 		//NEED TO BUILD
-		String longitude = "-100"; //FOR TESTING
-		String latitude = "40"; //FOR TESTING
+		String longitude = request.getParameter("longitude");
+		String latitude = request.getParameter("latitude");
+		//String longitude = "-100"; //FOR TESTING
+		//String latitude = "40"; //FOR TESTING
 		
 		// request report
-		String sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm," + 
+		sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm," + 
 					"st_X(ST_CENTROID(geom)) as longitude, st_y(ST_CENTROID(geom)) as latitude "+ 
 					"from public.rpt_cranes_in_pa where species = '"+ species + "' and month = "+ month +
 					" ORDER BY geom <-> st_setsrid(st_makepoint("+longitude+","+latitude+"), 4326) LIMIT "+ myCount;

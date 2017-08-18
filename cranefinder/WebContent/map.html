@@ -27,7 +27,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
   <!-- Google Map JavaScript libraries-->
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB8Woz2WyIajSRO89Lk3pfpgZrqvjIpZe8&signed_in=true&libraries=places,visualization"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyDoY5K-aP_KO_XQcMPGm9XyDwa3OwsHL9E&signed_in=true&libraries=places,visualization"></script>
   
   </head>
 
@@ -113,6 +113,10 @@
                    
 
                   <!-- Location type input -->
+                  <!-- Using Google autocomplete to select location -->
+               <div><label>Address:</label>
+                <input id="autocomplete" placeholder="Address" >
+              </div>
                   <!-- 
                   <div class="list-group-item"><label>Search by:</label>
                     <select onchange="onSelectLocationType(this)" name="location_type">

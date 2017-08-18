@@ -37,7 +37,7 @@ function showAllReports() {
 	  $.ajax({
 	    url: 'HttpServlet',
 	    type: 'POST',
-	    data: { "tab_id": "1","species":"WHCR","month":"1","myCount":"20"},
+	    data: { "tab_id": "1",},
 	    success: function(reports) {
 	    	mapInitialization(reports);
 	    },
@@ -144,35 +144,42 @@ function initAutocomplete() {
 
 	  // When the user selects an address from the dropdown, show the place selected
 	  autocomplete.addListener('place_changed', onPlaceChanged);
-	}
+}
 
 function onPlaceChanged() {
-place = autocomplete.getPlace();
-if (!place.geometry) {
+	  place = autocomplete.getPlace();
+	  map.fitBounds(place.geometry.viewport);
+	  map.setZoom(17);
+	}
+
+
+//if (!place.geometry) {
 	  // User entered the name of a Place that was not suggested and
     // pressed the Enter key, or the Place Details request failed.
-    window.alert("No details available for input: '" + place.name + "'");
-    return;
-    }
+  //  window.alert("No details available for input: '" + place.name + "'");
+   // return;
+   // }
 // If the place has a geometry, then present it on a map.
-	if (place.geometry.viewport) {
-		map.fitBounds(place.geometry.viewport);
-    } else {
-      map.setCenter(place.geometry.location);
-      map.setZoom(17);  // Why 17? Because it looks good.
-    }
-    marker.setPosition(place.geometry.location);
-    marker.setVisible(true);
+	//if (place.geometry.viewport) {
+	//	map.fitBounds(place.geometry.viewport);
+    //} else {
+      //map.setCenter(place.geometry.location);
+      //map.setZoom(17);  // Why 17? Because it looks good.
+    //}
+    //marker.setPosition(place.geometry.location);
+    //marker.setVisible(true);
 
-    var address = '';
-    if (place.address_components) {
-      address = [
-        (place.address_components[0] && place.address_components[0].short_name || ''),
-        (place.address_components[1] && place.address_components[1].short_name || ''),
-        (place.address_components[2] && place.address_components[2].short_name || '')
-      ].join(' ');
-      }
-    }
+    //var address = '';
+    //if (place.address_components) {
+    //  address = [
+    //    (place.address_components[0] && place.address_components[0].short_name || ''),
+    //    (place.address_components[1] && place.address_components[1].short_name || ''),
+    //    (place.address_components[2] && place.address_components[2].short_name || '')
+    //  ].join(' ');
+     // }
+    //}
 
+
+	//}
 //Execute our 'initialization' function once the page has loaded.
 google.maps.event.addDomListener(window, 'load', initialization);
