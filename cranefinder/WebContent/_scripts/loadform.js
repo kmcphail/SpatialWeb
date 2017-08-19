@@ -119,6 +119,12 @@ function queryProtectedAreas(event) {
 
 function queryReport(event) {
   event.preventDefault(); // Stop form from submitting normally
+  /*
+  if (!place.geometry){
+	  place.geometry.location.lng()=pos.geometry.location.lng();
+	  place.geometry.location.lat()=pos.geometry.location.lat();
+  }
+  */
   
   var a = $("#query_report_form").serializeArray();
   a.push({ name: "tab_id", value: "1" });
