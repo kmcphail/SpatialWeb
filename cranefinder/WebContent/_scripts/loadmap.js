@@ -148,6 +148,38 @@ function mapInitialization(reports) {
 	contentStr+= '<p>If you plan to see cranes, contact the protected area to verify that<br/>'+
 	'the cranes are easy to find.</p>';
 	
+	/** the following icon code is set up to accept custom icons if the foundation chooses to use
+	  custom icons, it is set up so that minimal changes in code are needed. 
+	 */
+	//set the icon base where the png icons reside
+    //var iconBase = 'C:/programming/workspace/WebProject/WebContent/img/';
+    
+    
+    //icon container to assign the icon to damage type
+    var icon = {uncommon:{url: '_assets/mm_20_purple.png'},
+    					//scaledSize:new google.maps.Size(10,10)},//resize the marker to be smaller
+    			often:{url:'_assets/mm_20_purple.png',
+    					scaledSize:new google.maps.Size(20,30)},
+    			hot:{url:'_assets/mm_20_purple.png',
+    					scaledSize:new google.maps.Size(30,40)},
+    };
+    
+    
+    // assign feature array container to hold the icon types
+    var sighting  = [{type:'uncommon'},{type:'often'},{type:'hot'}];
+    
+    //if statements to assign the report icon type to report type. 
+    if (parseFloat(e["avg_reports"]) < 1 ) {
+    	sighting.type = 'uncommon'
+    };
+    if (1<=parseFloat(e["avg_reports"]) && parseFloat(e["avg_reports"])<=30 ){
+    	 sighting.type = 'often'
+     };
+     
+     if (parseFloat(e['avg_reports'])> 30){
+    	 sighting.type = 'hot'
+     };
+	
 	// Create the marker
 	var long = Number(e['longitude']);
 	var lat = Number(e['latitude']);
@@ -157,7 +189,8 @@ function mapInitialization(reports) {
 	
 	var marker = new google.maps.Marker({ // Set the marker
 	  position : latlng, // Position marker to coordinates
-	  //icon : icons[report_type].icon,
+	  icon : icon[sighting.type],
+	  //icon:'_assets/mm_20_purple.png',
 	  map : map, // assign the marker to our map variable
 	  customInfo: contentStr,
 	});
