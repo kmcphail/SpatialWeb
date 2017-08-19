@@ -19,37 +19,57 @@ var months = {
 	'12':'December'
 };
 
-//attempt to show current location
-var myloc = new google.maps.Marker({
-	clickable: false,
-	icon: new google.maps.MarkerImage('_assets/mm_20_red.png'),
-	shado: null,
-	map: map
-});
-
-//part of attempt to show user location
-function showMyLocation(){
-	if (navigator.geolocation) navigator.geolocation.getCurrentPosition(function(pos) {
-	    var me = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-	    myloc.setPosition(me);
-	}, function(error) {
-	    // ...
-	});
-}
 
 function initialization() {
-	mapClear();
-	//showAllReports();
+	mapStart();
 	initAutocomplete();
-	showMyLocation();
 }
 
-function mapClear() {
+function mapStart() {
 	map = new google.maps.Map(document.getElementById('map-canvas'),{
 		center :{lat: 40, lng: -100},
 		zoom: 5
 	});
+	
+	//Code from: https://developers.google.com/maps/documentation/javascript/geolocation
+	// Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        
+        //Center the map and Zoom
+        map.setCenter(pos);
+        map.setZoom(8);
+        //Call the function to add the marker
+        addLocMarker(pos);
+        
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
 }
+
+function addLocMarker(location){
+	var locMarker = new google.maps.Marker({ // Set the marker
+		  position : location, // Position marker to coordinates
+		  icon : '_assets/mm_20_red.png',
+		  map : map, // assign the marker to our map variable
+		});
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+                          'Error: The Geolocation service failed.' :
+                          'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.open(map);
+  }
 
 function showAllReports() {
 	  $.ajax({
@@ -168,7 +188,8 @@ function initAutocomplete() {
 function onPlaceChanged() {
 	  place = autocomplete.getPlace();
 	  map.fitBounds(place.geometry.viewport);
-	  map.setZoom(14);
+	  //map.setZoom(14);
+	  addLocMarker(place.geometry.location);
 	}
 
 
