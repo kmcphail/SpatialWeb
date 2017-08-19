@@ -90,45 +90,45 @@ function mapInitialization(reports) {
 		  var r_species = "Sandhill crane"
 	  } 
 	  if (e["species"]=="WHCR") {
-		  var r_species = "Whooping crane"
+		  var r_species = "Whooping crane";
 	  }
-	  //Make species name plural if you see more than 1
-	  if (parseInt(e["max_observed"])>1){
-		  r_species +="s"
+	
+	  var p_species = r_species+'s';
+	  var max_observed=e['max_observed'];
+	  var myUnit =  e['unit_nm'];
+	  
+	  if (max_observed>1){
+		  r_species += 's';
 	  }
 
 	// Create the infoWindow Output
 	//NOTE: align = "center" is not supported in HTML5, Use CSS
 	
 	//Protected Area Name
-	var contentStr = '<h4>'+ e['unit_nm']+'</h4><hr>';
+	var contentStr = '<h4>'+ myUnit+'</h4>';
 	//Where sightings are Rare
-	if (parseFloat(e["avg_reports"]) < 5 ) {
-		contentStr += '<h6>In '+'&nbsp' +r_month+'&nbsp'+'it is rare to see'+ '&nbsp'+
-		//contentStr += '<p>' + 'It is rare to see' + '</p>';
-		 'as many as' + '&nbsp' + e["max_observed"]+ '&nbsp'+
-		 r_species + '&nbsp' + 'here' + '</h6>';
-		contentStr+= '<p>'+'If you plan to see cranes, contact the area to varify that<br/>'+
-		'the cranes are in the area and easy to see'+'</p>';
+	if (parseFloat(e["avg_reports"]) < 1 ) {
+		contentStr += '<h6>Sightings of '+p_species+' are uncommon here.'+
+		'<br/>On average, eBird volunteers report less than one sighting'+
+		' of '+p_species+' per year in '+r_month+'.</h6> <h6>When '+p_species+
+		' are here, the largest number seen at one time is '+max_observed+' '+r_species+'.</h6>';
 	  }
 	//Where sigtings are likely
-	if (5<=parseFloat(e["avg_reports"]) && parseFloat(e["avg_reports"])<=25 ) {
-		contentStr += '<h6>In '+'&nbsp' +r_month+'&nbsp'+'it is likely to see'+ '&nbsp'+
-		//contentStr += '<p>' + 'It is to see' + '</p>';
-		 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
-		 r_species + '&nbsp' + 'here' + '</h6>';
-		contentStr+= '<p>'+'If you plan to see cranes, contact the area to varify that<br/>'+
-		'the cranes are in the area and easy to see'+'</p>'
+	if (1<=parseFloat(e["avg_reports"]) && parseFloat(e["avg_reports"])<=30 ) {
+		contentStr += '<h5>Sightings of '+ p_species + ' are often seen here.</h5> <h6>On average, eBird '+
+		'volunteers report sightings here up to once per day in'+ r_month+
+		'. </h6> <h6>The largest number of '+p_species+' seen here in '+
+		r_month +' at one time is '+max_observed+' '+r_species+'.</h6>';
 	  }
 	//Where sightins are very likely
-	if (parseFloat(e['avg_reports'])> 25  ) {
-		contentStr += '<h6>In '+'&nbsp' +r_month+'&nbsp'+'it is highly likely to see'+ '&nbsp'+
-		//contentStr += '<p>' + 'It is  to see' + '</p>';
-		 'as many as' + '&nbsp' + e['max_observed']+ '&nbsp'+
-		 r_species + '&nbsp' + 'here' + '</h6>';
-		contentStr+= '<p>'+'If you plan to see cranes, contact the area to varify that<br/>'+
-		'the cranes are in the area and easy to see'+'</p>'
+	if (parseFloat(e['avg_reports'])> 30  ) {
+		contentStr += '<h4>This is a hot spot for '+p_species+'!</h4><h6>On average, '+
+		'eBird volunteers report sightings more thant once per day. </h6><h6>The '+
+		'largest number of '+p_species+' seen here in '+r_month+' at one time is '+
+		max_observed + ' ' + r_species + '.</h6>';
 	  }
+	contentStr+= '<p>If you plan to see cranes, contact the protected area to verify that<br/>'+
+	'the cranes are easy to find.</p>';
 	
 	// Create the marker
 	var long = Number(e['longitude']);
