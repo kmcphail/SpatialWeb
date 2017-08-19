@@ -44,8 +44,6 @@ function initialization() {
 	showMyLocation();
 }
 
-
-
 function mapClear() {
 	map = new google.maps.Map(document.getElementById('map-canvas'),{
 		center :{lat: 40, lng: -100},
@@ -113,14 +111,14 @@ function mapInitialization(reports) {
 		' of '+p_species+' per year in '+r_month+'.</h6> <h6>When '+p_species+
 		' are here, the largest number seen at one time is '+max_observed+' '+r_species+'.</h6>';
 	  }
-	//Where sigtings are likely
+	//Where sightings are likely
 	if (1<=parseFloat(e["avg_reports"]) && parseFloat(e["avg_reports"])<=30 ) {
 		contentStr += '<h5>Sightings of '+ p_species + ' are often seen here.</h5> <h6>On average, eBird '+
 		'volunteers report sightings here up to once per day in'+ r_month+
 		'. </h6> <h6>The largest number of '+p_species+' seen here in '+
 		r_month +' at one time is '+max_observed+' '+r_species+'.</h6>';
 	  }
-	//Where sightins are very likely
+	//Where sightings are very likely
 	if (parseFloat(e['avg_reports'])> 30  ) {
 		contentStr += '<h4>This is a hot spot for '+p_species+'!</h4><h6>On average, '+
 		'eBird volunteers report sightings more thant once per day. </h6><h6>The '+
@@ -170,7 +168,7 @@ function initAutocomplete() {
 function onPlaceChanged() {
 	  place = autocomplete.getPlace();
 	  map.fitBounds(place.geometry.viewport);
-	  map.setZoom(17);
+	  map.setZoom(14);
 	}
 
 
