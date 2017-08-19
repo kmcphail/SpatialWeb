@@ -42,7 +42,8 @@ div > h2 {
   vertical-align: middle;
 }
 
-.cover-container {
+.cover-container,
+.about-container {
   margin-right: auto;
   margin-left: auto;
   vertical-align: center;
@@ -56,12 +57,21 @@ div > h2 {
   vertical-align: center;
   width: 100%;
 }
+
 .cover-inner {
   padding: 0 20%;
 }
+/* Not used?
+.main {
+  padding: 0% 0%;
+}
+*/
+.about-inner {
+  padding: 5% 10%;
+}
 
 
-/* Header */
+/* Navbar */
 .mainheader {
   background: #333;
   color: #FFF;
@@ -112,15 +122,24 @@ div > h2 {
 
 
 /* Body */
+/* Not used?
 .cover {
   padding: 5% 15%;
 }
+*/
 .cover .btn-lg {
   padding: 10px 20px;
   font-weight: bold;
 }
-.main {
-  padding: 0% 0%;
+
+.about-header {
+  font-size: 24px;
+  text-align: left;
+}
+.about-text > p {
+  font-size: 14px;
+  text-align: left;
+  text-indent: 2em;
 }
 
 
@@ -134,4 +153,16 @@ div > h2 {
   width: 100%;
 }
 
-
+.citation {
+  text-align: left;
+  padding: 0% 10%;
+}
+.citation > p:first-child {
+  font-size: 12px;
+  text-decoration: underline;
+}
+.citation > p {
+  font-size: 10px;
+  text-indent: -3em;
+  padding-left: 3em;
+}

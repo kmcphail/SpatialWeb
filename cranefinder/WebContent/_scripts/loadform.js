@@ -1,37 +1,9 @@
-// TO DO: Clean up & consolidate functions
-
-function applyMargins() {
-  var sidebarLeft = $(".sidebar-collapsed");
-  if (sidebarLeft.is(":visible")) {
-    $("#map")
-      .css("margin-left", 0)
-      .removeClass("zoom-top-opened-sidebar")
-      .addClass("zoom-top-collapsed");
-  } else {
-    $("#map")
-      .css("margin-left", $(".sidebar-left").width())
-      .removeClass("zoom-top-opened-sidebar")
-      .removeClass("zoom-top-collapsed");
-  }
-}
-
-function isConstrained() {
-  return $(".sidebar").width() == $(window).width();
-}
-function applyInitialUIState() {
-  if (isConstrained()) {
-    $(".sidebar-left .sidebar-body").fadeOut("slide");
-    $(".sidebar-collapsed-left").fadeIn();
-  }
-}
-
 // Sidebar collapse animation
 $(function(){
   $(".sidebar-left .slide-sidebar").on("click",function() {
     var thisElement = $(this);
     thisElement.closest(".sidebar-body").fadeOut("slide",function(){
       $(".sidebar-collapsed-left").fadeIn();
-      applyMargins();
     });
   });
   
@@ -39,30 +11,26 @@ $(function(){
     var thisElement = $(this);
     $(".sidebar-left .sidebar-body").toggle("slide");
     thisElement.hide();
-    applyMargins();
   });
-  
-  $(window).on("resize", applyMargins);
-  
-  applyInitialUIState();
-  applyMargins();
 });
 
 
-// Set default option to current month
+// Set default options to current month & year
 $(document).ready(function() {
   var date = new Date();
   //we need to send the integer value for the month to the query 
   //So we add 1 to the index value returned by the getMonth() function
   var month = date.getMonth()+1;
+  var year = date.getFullYear();
   document.getElementById("month").value = month;
+  document.getElementById("year").value = year;
   });
 
 
 
-
+//ON HOLD: Incorporate location query type
 // Hidden field selector for location query type 
-
+/*
 function onSelectLocationType(ele) {
   var form = $(ele).parent().parent();
   var label = $(form).find("location_field_label");
@@ -116,7 +84,9 @@ function onSelectLocationType(ele) {
 function queryProtectedAreas(event) {
     
 }
+*/
 
+// Query function
 function queryReport(event) {
   event.preventDefault(); // Stop form from submitting normally
   
@@ -167,5 +137,3 @@ function createReport(event){
 }
 
 $("#create_report_form").on("submit",createReport);
-
-

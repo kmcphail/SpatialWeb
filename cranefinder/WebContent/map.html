@@ -55,35 +55,33 @@
 	<div id="map-canvas"></div> 
     
     <!-- Sidebar section -->
-    <!-- TO DO: Fix panel collapse -->
     <div class="main-row">
-      <div class="sidebar col-xs-8 col-sm-6 col-md-4 col-lg-4 sidebar-left pull-left">
-        <div class="panel-group sidebar-body" id="accordion">
+      <div class="sidebar sidebar-left pull-left col-xs-8 col-sm-6 col-md-4 col-lg-4">
+        <div class="panel-group sidebar-body">
           
           <!-- Query Panel -->
           <!-- User submits their crane query here -->
           <div class="panel panel-default">
             <div class="panel-heading">
               <h2 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#query_report">Find Cranes Near You</a>
+                <a data-toggle="collapse" href="#query_report">Find Cranes Near You</a>
                 <span class="pull-right slide-sidebar">
                   <i class="glyphicon glyphicon-chevron-left"></i>
                 </span>
               </h2>
             </div>
             <div id="query_report" class="panel-collapse collapse in">
-              <div class="panel-body list-group">
+              <div class="panel-body list-group pre-scrollable">
               	<div class="list-group-item" id="instructions">
               		Start with providing an address or location where to start your search.<br/>
               		Then choose your species, the month when you'll be looking, and how many locations to return.
               	</div>
-                <form id="query_report_form">
+              	<form id="query_report_form">
                 
-                <!-- Location type input -->
-                <!-- Using Google autocomplete to select location -->
-               	<div class="list-group-item"><label>Place or Address:</label>
+                  <!-- Using Google autocomplete to select location -->
+               	  <div class="list-group-item"><label>Place or Address:</label>
                 	<input id="autocomplete" placeholder="Address" >
-             	 </div>
+             	  </div>
 
                   <!-- Species input -->
                   <div class="list-group-item"><label>Species:</label>
@@ -96,7 +94,6 @@
                   <!-- Month input -->
                   <div class="list-group-item"><label>Month:</label>
                     <select id="month" name="month">
-                      <!-- TO DO: Set current month as default value -->
                       <option value="1">January</option>
                       <option value="2">February</option>
                       <option value="3">March</option>
@@ -121,7 +118,7 @@
                   	</select>
                   </div>
 
-                  <!-- 
+                  <!-- ON HOLD: Incorporate location query type
                   <div class="list-group-item"><label>Search by:</label>
                     <select onchange="onSelectLocationType(this)" name="location_type">
                       <option value="query_currloc">Current Location</option>
@@ -164,7 +161,7 @@
 
                   <br>
                   <button type="submit" class="btn btn-default" >
-                    <span class="glyphicon glyphicon-ok"></span>&nbsp;Find Cranes
+                    <span class="glyphicon glyphicon-search"></span>&nbsp;Find Cranes
                   </button>
                 </form>
               </div>

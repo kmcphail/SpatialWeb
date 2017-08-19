@@ -55,33 +55,32 @@
 	<div id="map-canvas"></div> 
     
     <!-- Sidebar section -->
-    <!-- TO DO: Fix panel collapse -->
     <div class="main-row">
-      <div class="sidebar col-sm-4 col-md-3 sidebar-left pull-left">
-        <div class="panel-group sidebar-body pre-scrollable">
-                    
-          </div>
+      <div class="sidebar sidebar-left pull-left col-xs-8 col-sm-6 col-md-4 col-lg-4">
+        <div class="panel-group sidebar-body">
+
           <!-- Story Panel -->
           <!-- User submits their crane observation story here -->
           <div class="panel panel-default">
             <div class="panel-heading">
               <h2 class="panel-title">
                 <a data-toggle="collapse" href="#observations">Tell Us Your Story of North America's Cranes</a>
+                <span class="pull-right slide-sidebar">
+                  <i class="glyphicon glyphicon-chevron-left"></i>
+                </span>
               </h2>
             </div>
             <div id="observations" class="panel-collapse collapse in">
-              <div class="panel-body list-group">
+              <div class="panel-body list-group pre-scrollable">
                 <form id="create_report_form">
                 
-                  
-
                   <!-- User information input -->
                   <div class="form-group"><label>Tell us more about you:</label><br>
                   	  <input class="form-control" placeholder="First Name" name="fname">
                   	  <input class="form-control" placeholder="Last Name" name="lname">
                   	  <input class="form-control" type="email" placeholder="Email" name="email">
                   	  <label>
-				          <input type="checkbox" name="addtolist"> Sign me up to receive periodic emails from the <br/>International Crane Foundation.
+				        <input type="checkbox" name="addtolist"> Sign me up to receive periodic emails from the <br/>International Crane Foundation.
 				      </label>
                   </div>
                   
@@ -90,20 +89,20 @@
                   <div class="list-group-item"><label>Tell us your story:</label><br>
                   	<textarea class="form-control" rows="6" name="story"></textarea>
                   	<label>
-				          <input type="checkbox" name="shareable"> Please share my story with other visitors.
-				      </label>
+				      <input type="checkbox" name="shareable"> Please share my story with other visitors.
+				    </label>
                   </div>
                   
                   <!-- Crane information input -->
                   <div class="list-group-item"><label>Tell us a little bit more:</label><br>
 	                
 	                <!-- Location input -->
-                    <div class="list-group-item"><label>Where were you?</label>
+                    <div><label>Where were you?</label>
                       <input id="autocomplete" placeholder="Place or Address">
                     </div>
                    
                     <!-- Species input -->
-	               <div class="list-group-item">
+	               <div>
 	               <label><em>Which species did you see</em></label>
 	               	<select class="form-control" id = "species" name="species">
 	                  <option value="SACR">Sandhill Crane</option>
@@ -118,7 +117,6 @@
                    			<div class="form-group">
 			                   	
 			                      <select class="form-control" id="month" name="omonth">
-			                      	<!-- TO DO: Set current month as default value -->
 			                        <option value="1">January</option>
 			                      	<option value="2">February</option>
 			                      	<option value="3">March</option>
@@ -135,10 +133,10 @@
 			                 </div>
 			                 <div class="form-group">
 			                 <label class="sr-only" for="oyear" >Year</label>
-			                    <input class="number" name="oyear" placeholder="Year">
+			                    <input class="number" id="year" name="oyear" placeholder="Year">
 			            	</div>
                     	</div>
-                    </div>
+                    </div><br>
 
                   <button type="submit" class="btn btn-default">
                     <span class="glyphicon glyphicon-ok"></span>&nbsp;Share

@@ -1,5 +1,6 @@
+html,
 body {
-  overflow: hidden;
+  overflow-y: auto;
 }
 .mainheader-offset {
   margin-top: 48px;
@@ -27,26 +28,29 @@ body {
   position: absolute;
   top: 125px;
   left: 10px;
-  z-index: 20;
+  z-index: 30;
 }
 .sidebar {
   top: 75px;
   left: -6px;
   z-index: 30;
-  padding-bottom: 5px;
-  position: absolute;
 }
-.panel-body {
-	overflow-y: scroll;
-	top: 0;
-	bottom: 0;
+#query_report > .pre-scrollable {
+  min-height: 365px;
+  overflow-y: scroll;
+}
+#observations > .pre-scrollable {
+  min-height: 60vh;
+  overflow-y: scroll;
 }
 #instructions {
-	font-size: 12px;
+  font-size: 12px;
 }
 .main-row {
+  /*
   position: relative; 
   top: 0;
+  */
 }
 sidebar-collapsed:hover {
   cursor: pointer;
