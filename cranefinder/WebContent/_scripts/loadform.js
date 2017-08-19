@@ -119,17 +119,11 @@ function queryProtectedAreas(event) {
 
 function queryReport(event) {
   event.preventDefault(); // Stop form from submitting normally
-  /*
-  if (!place.geometry){
-	  place.geometry.location.lng()=pos.geometry.location.lng();
-	  place.geometry.location.lat()=pos.geometry.location.lat();
-  }
-  */
   
   var a = $("#query_report_form").serializeArray();
   a.push({ name: "tab_id", value: "1" });
-  a.push({name: "longitude", value: place.geometry.location.lng()});
-  a.push({name: "latitude", value: place.geometry.location.lat()});
+  a.push({name: "longitude", value: locMarker.getPosition().lng()});
+  a.push({name: "latitude", value: locMarker.getPosition().lat()});
   a = a.filter(function(item){return item.value != '';});
   $.ajax({
     url: 'HttpServlet',
@@ -152,8 +146,8 @@ function createReport(event){
 	var a = $("#create_report_form").serializeArray();
 	a.push({name: "tab_id", value: "0"});//push the items to make sure create a report is ran in the servlett
 	// push to a the long and lat of the location selected by user
-	a.push({name: "longitude", value: place.geometry.location.lng()});
-	a.push({name: "latitude", value: place.geometry.location.lat()}); 
+	  a.push({name: "longitude", value: locMarker.getPosition().lng()});
+	  a.push({name: "latitude", value: locMarker.getPosition().lat()});
 	a = a.filter(function(item){return item.value !='';}); //filter out items that do not have values
 	$.ajax({//ajax command to get data together
 		url: 'HttpServlet',

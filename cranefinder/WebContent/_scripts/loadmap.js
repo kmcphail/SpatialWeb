@@ -1,6 +1,7 @@
 var map;
 var place;
 var autocomplete;
+var locMarker
 var infowindow = new google.maps.InfoWindow();
 
 //months translator dictionary
@@ -21,11 +22,12 @@ var months = {
 
 
 function initialization() {
-	mapStart();
-	initAutocomplete();
+	mapStart(); //blank map and add the user location if possible
+	initAutocomplete(); //get ready to run the place finder
 }
 
 function mapStart() {
+	//Default the map to the center of the lower 48 - more or less
 	map = new google.maps.Map(document.getElementById('map-canvas'),{
 		center :{lat: 40, lng: -100},
 		zoom: 5
@@ -55,8 +57,9 @@ function mapStart() {
     }
 }
 
-function addLocMarker(location){
-	var locMarker = new google.maps.Marker({ // Set the marker
+// function to show the focus location
+function addLocMarker(location){ 
+	locMarker = new google.maps.Marker({ // Set the marker
 		  position : location, // Position marker to coordinates
 		  icon : '_assets/mm_20_red.png',
 		  map : map, // assign the marker to our map variable
@@ -71,6 +74,8 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.open(map);
   }
 
+/* 
+ * We currently don't use this but we may if we implement the story markers
 function showAllReports() {
 	  $.ajax({
 	    url: 'HttpServlet',
@@ -84,7 +89,7 @@ function showAllReports() {
 	    }
 	  });
 	}
-
+*/
 
 function mapInitialization(reports) {
 	var mapOptions = {
@@ -172,7 +177,6 @@ function mapInitialization(reports) {
   });
   //Reposition the map and zoom level
   map.fitBounds (bounds);
-  showMyLocation();
 
 }
 
@@ -186,40 +190,20 @@ function initAutocomplete() {
 }
 
 function onPlaceChanged() {
-	  place = autocomplete.getPlace();
-	  map.fitBounds(place.geometry.viewport);
-	  //map.setZoom(14);
-	  addLocMarker(place.geometry.location);
+	place = autocomplete.getPlace();
+	if (!place.geometry) {
+		//User entered the name of a Place that was not suggested and
+	    //pressed the Enter key, or the Place Details request failed.
+	  window.alert("No details available for input: '" + place.name + "' - "+
+			  "We will use your current location for the search.");
+	  return;
+	  }
+	// If the place has a geometry, then present it on a map.
+	if (place.geometry.viewport) {
+		  map.fitBounds(place.geometry.viewport);
+		  addLocMarker(place.geometry.location);
 	}
+}
 
-
-//if (!place.geometry) {
-	  // User entered the name of a Place that was not suggested and
-    // pressed the Enter key, or the Place Details request failed.
-  //  window.alert("No details available for input: '" + place.name + "'");
-   // return;
-   // }
-// If the place has a geometry, then present it on a map.
-	//if (place.geometry.viewport) {
-	//	map.fitBounds(place.geometry.viewport);
-    //} else {
-      //map.setCenter(place.geometry.location);
-      //map.setZoom(17);  // Why 17? Because it looks good.
-    //}
-    //marker.setPosition(place.geometry.location);
-    //marker.setVisible(true);
-
-    //var address = '';
-    //if (place.address_components) {
-    //  address = [
-    //    (place.address_components[0] && place.address_components[0].short_name || ''),
-    //    (place.address_components[1] && place.address_components[1].short_name || ''),
-    //    (place.address_components[2] && place.address_components[2].short_name || '')
-    //  ].join(' ');
-     // }
-    //}
-
-
-	//}
 //Execute our 'initialization' function once the page has loaded.
 google.maps.event.addDomListener(window, 'load', initialization);
