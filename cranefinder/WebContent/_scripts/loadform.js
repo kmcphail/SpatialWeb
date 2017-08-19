@@ -1,15 +1,14 @@
 // TO DO: Clean up & consolidate functions
 
-// Reposition zoom toolbar
 function applyMargins() {
   var sidebarLeft = $(".sidebar-collapsed");
   if (sidebarLeft.is(":visible")) {
-    $("#map .ol-zoom")
+    $("#map")
       .css("margin-left", 0)
       .removeClass("zoom-top-opened-sidebar")
       .addClass("zoom-top-collapsed");
   } else {
-    $("#map .ol-zoom")
+    $("#map")
       .css("margin-left", $(".sidebar-left").width())
       .removeClass("zoom-top-opened-sidebar")
       .removeClass("zoom-top-collapsed");
@@ -50,12 +49,13 @@ $(function(){
 });
 
 
-// TO DO: Create current date function
+// Set default option to current month
 $(document).ready(function() {
   var date = new Date();
   //we need to send the integer value for the month to the query 
   //So we add 1 to the index value returned by the getMonth() function
   var month = date.getMonth()+1;
+  document.getElementById("month").value = month;
   });
 
 
