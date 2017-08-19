@@ -22,24 +22,27 @@ body {
   padding: 5px;
   width: 38px;
   text-align: center;
-  position: absolute;
-  top: 100px;
-  left: 10px;
-  z-index: 10;
 }
 .sidebar-collapsed-left {
   position: absolute;
-  top: 100px;
+  top: 125px;
   left: 10px;
   z-index: 20;
 }
 .sidebar {
-  top: 52px;
+  top: 75px;
   left: -6px;
-  z-index: 30; 
+  z-index: 30;
+  padding-bottom: 5px;
+  position: absolute;
 }
-.pre-scrollable {
-  max-height: 100%;
+.panel-body {
+	overflow-y: scroll;
+	top: 0;
+	bottom: 0;
+}
+#instructions {
+	font-size: 12px;
 }
 .main-row {
   position: relative; 

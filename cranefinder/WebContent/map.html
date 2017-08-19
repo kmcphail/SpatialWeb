@@ -57,8 +57,8 @@
     <!-- Sidebar section -->
     <!-- TO DO: Fix panel collapse -->
     <div class="main-row">
-      <div class="sidebar col-sm-4 col-md-3 sidebar-left pull-left">
-        <div class="panel-group sidebar-body pre-scrollable" id="accordion">
+      <div class="sidebar col-xs-8 col-sm-6 col-md-4 col-lg-4 sidebar-left pull-left">
+        <div class="panel-group sidebar-body" id="accordion">
           
           <!-- Query Panel -->
           <!-- User submits their crane query here -->
@@ -73,8 +73,10 @@
             </div>
             <div id="query_report" class="panel-collapse collapse in">
               <div class="panel-body list-group">
-              <p>Start with providing an address or location where to search from.<br/>
-              Then choose your species, the month when you'll be looking, and how many locations to return.</p>
+              	<div class="list-group-item" id="instructions">
+              		Start with providing an address or location where to search from.<br/>
+              		Then choose your species, the month when you'll be looking, and how many locations to return.
+              	</div>
                 <form id="query_report_form">
                 
                 <!-- Location type input -->
@@ -93,7 +95,7 @@
                 
                   <!-- Month input -->
                   <div class="list-group-item"><label>Month:</label>
-                    <select name="month">
+                    <select id="month" name="month">
                       <!-- TO DO: Set current month as default value -->
                       <option value="1">January</option>
                       <option value="2">February</option>
