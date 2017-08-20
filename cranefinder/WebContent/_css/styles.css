@@ -9,13 +9,21 @@ a:hover {
 .btn-default:focus {
   color: #CCC;
   background-color: #FFF;
-  border: 1px solid #FFF;
+  border: 0px solid #FFF;
+}
+.btn-default:hover,
+.btn-default:focus {
+  color: #FFF !important;
+  background-color: #CBB677 !important;
+  border: 1px solid #CBB677 !important;
 }
 
+/* Background & headers */
 html,
 body {
   height: 100%;
   background-color: #333;
+  font-family: "Helvetica", sans-serif;
 }
 body {
   color: #FFF;
@@ -61,11 +69,6 @@ div > h2 {
 .cover-inner {
   padding: 0 20%;
 }
-/* Not used?
-.main {
-  padding: 0% 0%;
-}
-*/
 .about-inner {
   padding: 5% 10%;
 }
@@ -73,7 +76,7 @@ div > h2 {
 
 /* Navbar */
 .mainheader {
-  background: #333;
+  background: #3B6E8F;
   color: #FFF;
   position: fixed;
   top: 0;
@@ -122,11 +125,6 @@ div > h2 {
 
 
 /* Body */
-/* Not used?
-.cover {
-  padding: 5% 15%;
-}
-*/
 .cover .btn-lg {
   padding: 10px 20px;
   font-weight: bold;
@@ -146,8 +144,8 @@ div > h2 {
 /* Footer */
 .coverfooter,
 .mainfooter {
-  background: #333;
-  color: #999;
+  background: #CBB677 !important;
+  color: #FFF;
   position: fixed;
   bottom: 0;
   width: 100%;

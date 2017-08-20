@@ -1,3 +1,4 @@
+/* Background & map canvas */
 html,
 body {
   overflow-y: auto;
@@ -15,6 +16,8 @@ body {
   z-index: 10;
 }
 
+
+/* Sidebar */
 .sidebar-collapsed {
   display:none;  
   background-color: rgba(255, 255, 255, 1.0);
@@ -23,6 +26,7 @@ body {
   padding: 5px;
   width: 38px;
   text-align: center;
+  cursor: pointer;
 }
 .sidebar-collapsed-left {
   position: absolute;
@@ -35,6 +39,16 @@ body {
   left: -6px;
   z-index: 30;
 }
+.slide-sidebar {
+  background: rgba(0, 0, 0, 0.0);
+  display: inline-block;
+  padding: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+ /* Form */
 #query_report > .pre-scrollable {
   min-height: 365px;
   overflow-y: scroll;
@@ -45,21 +59,4 @@ body {
 }
 #instructions {
   font-size: 12px;
-}
-.main-row {
-  /*
-  position: relative; 
-  top: 0;
-  */
-}
-sidebar-collapsed:hover {
-  cursor: pointer;
-  background-color: rgba(232, 232, 232, 1.0);
-}
-.slide-sidebar {
-  background: rgba(0, 0, 0, 0.0);
-  display: inline-block;
-  padding: 0 10px;
-  border-radius: 5px;
-  cursor: pointer;
 }
