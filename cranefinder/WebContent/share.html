@@ -95,25 +95,25 @@
                   <div class="list-group-item"><label>Tell us a little bit more:</label><br>
 	                
 	                <!-- Location input -->
-                    <div><label>Where were you?</label>
+                    <div>
+                      <label><em>Where were you?</em></label>
                       <input id="autocomplete" placeholder="Place or Address">
                     </div>
                    
                     <!-- Species input -->
-	               <div>
-	               <label><em>Which species did you see</em></label>
-	               	<select class="form-control" id = "species" name="species">
-	                  <option value="SACR">Sandhill Crane</option>
-	                  <option value="WHCR">Whooping Crane</option>
-	                  <option value="BOTH">Both Species</option>
-	                </select>
-	               </div>
+	                <div>
+	               	  <label><em>Which species did you see?</em></label>
+	               	  <select class="form-control" id = "species" name="species">
+	                    <option value="SACR">Sandhill Crane</option>
+	                    <option value="WHCR">Whooping Crane</option>
+	                    <option value="BOTH">Both Species</option>
+	                  </select>
+	                </div>
 	
                   	<!-- Month input -->
-                   	<p><b>When did you see them?</b></p>
+                   	<label><em>When did you see them?</em></label>
                    		<div class="form-inline">
                    			<div class="form-group">
-			                   	
 			                      <select class="form-control" id="month" name="omonth">
 			                        <option value="1">January</option>
 			                      	<option value="2">February</option>
@@ -131,14 +131,16 @@
 			                 </div>
 			                 <div class="form-group">
 			                 <label class="sr-only" for="oyear" >Year</label>
-			                    <input class="number" id="year" name="oyear" placeholder="Year">
+			                    <input class="number" id="year" name="oyear">
 			            	</div>
                     	</div>
-                    </div><br>
-
+                    </div>
+                    
+				  <br>
                   <button type="submit" class="btn btn-default">
                     <span class="glyphicon glyphicon-ok"></span>&nbsp;Share
                   </button>
+                  
                 </form>
               </div>
             </div>
