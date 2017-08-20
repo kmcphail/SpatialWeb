@@ -15,16 +15,7 @@ $(function(){
 });
 
 
-// Set default options to current month & year
-$(document).ready(function() {
-  var date = new Date();
-  //we need to send the integer value for the month to the query 
-  //So we add 1 to the index value returned by the getMonth() function
-  var month = date.getMonth()+1;
-  var year = date.getFullYear();
-  document.getElementById("month").value = month;
-  document.getElementById("year").value = year;
-  });
+
 
 
 
@@ -86,6 +77,23 @@ function queryProtectedAreas(event) {
 }
 */
 
+// Function to set values to current month & year
+function setCurrentDate() {
+  var date = new Date();
+  //we need to send the integer value for the month to the query 
+  //So we add 1 to the index value returned by the getMonth() function
+  var month = date.getMonth()+1;
+  var year = date.getFullYear();
+  document.getElementById("month").value = month;
+  document.getElementById("year").value = year;
+};
+
+// Reset form function
+function resetForm(form_name) {
+  document.getElementById(form_name).reset();
+  $(document).ready(setCurrentDate());
+}
+
 // Query function
 function queryReport(event) {
   event.preventDefault(); // Stop form from submitting normally
@@ -110,14 +118,15 @@ function queryReport(event) {
 
 $("#query_report_form").on("submit", queryReport);
 
+// Create function
 function createReport(event){
-	event.preventDefault();// // stop form from submitting normally
-	//create variable and assign as a serialized array
+	event.preventDefault(); // Stop form from submitting normally
+	// Create variable and assign as a serialized array
 	var a = $("#create_report_form").serializeArray();
 	a.push({name: "tab_id", value: "0"});//push the items to make sure create a report is ran in the servlett
 	// push to a the long and lat of the location selected by user
-	  a.push({name: "longitude", value: locMarker.getPosition().lng()});
-	  a.push({name: "latitude", value: locMarker.getPosition().lat()});
+	a.push({name: "longitude", value: locMarker.getPosition().lng()});
+	a.push({name: "latitude", value: locMarker.getPosition().lat()});
 	a = a.filter(function(item){return item.value !='';}); //filter out items that do not have values
 	$.ajax({//ajax command to get data together
 		url: 'HttpServlet',
@@ -125,10 +134,7 @@ function createReport(event){
 		data: a,
 		success: function (reports){
 			alert("The Report is successfully submitted!");
-			//mapInitialiazion(reports); 
-			//reset the form
-			resetForm();
-			
+			//mapInitialiazion(reports);
 		},
 		error: function(xhr, status, error){
 			alert("Status: " + status+"\nError: "+error);
@@ -136,4 +142,7 @@ function createReport(event){
 	});
 }
 
-$("#create_report_form").on("submit",createReport);
+$("#create_report_form").on("submit", createReport, resetForm, setCurrentDate);
+
+// Set current date 
+$(document).ready(setCurrentDate());
