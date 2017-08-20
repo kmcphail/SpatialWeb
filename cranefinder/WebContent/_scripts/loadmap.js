@@ -139,7 +139,7 @@ function mapInitialization(reports) {
 	//Where sightings are likely
 	if (1<=parseFloat(e["avg_reports"]) && parseFloat(e["avg_reports"])<=30 ) {
 		contentStr += '<h5>Sightings of '+ p_species + ' are often seen here.</h5> <h6>On average, eBird '+
-		'volunteers report sightings here up to once per day in'+ r_month+
+		'volunteers report sightings here up to once per day in '+ r_month+
 		'. </h6> <h6>The largest number of '+p_species+' seen here in '+
 		r_month +' at one time is '+max_observed+' '+r_species+'.</h6>';
 	  }
@@ -161,12 +161,12 @@ function mapInitialization(reports) {
     
     
     //icon container to assign the icon to damage type
-    var icon = {uncommon:{url: '_assets/mm_20_purple.png'},
+    var icon = {uncommon:{url: '_assets/icf_wr_dia.png'},
     					//scaledSize:new google.maps.Size(10,10)},//resize the marker to be smaller
-    			often:{url:'_assets/mm_20_purple.png',
-    					scaledSize:new google.maps.Size(20,30)},
-    			hot:{url:'_assets/mm_20_purple.png',
-    					scaledSize:new google.maps.Size(30,40)},
+    			often:{url:'_assets/icf_wr_dia.png',
+    					scaledSize:new google.maps.Size(20,20)},
+    			hot:{url:'_assets/icf_wr_dia.png',
+    					scaledSize:new google.maps.Size(30,30)},
     };
     
     
