@@ -107,16 +107,19 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 				if (year != null) {year = "'" + year + "'";}
 				if (story != null) {story = "'" + story + "'";}
 				if (species !=null){species="'" + species+"'";}
+				//shareable and addtolist are checkboxes. 
+				//Unchecked values return null and checked returns not null
 				if (shareable !=null) { shareable="'yes'";}else {shareable="'no'";}
 				if (addtolist !=null) { addtolist="'yes'";}else {addtolist="'no'";}
 				
-				//accept null values for sharable and add to list?
-				
+				//Set the query for insert
 				sql = "insert into public.vol_stories(fname, lname, email, omonth, oyear, story," +
 						" shareable, addtolist, species, geom) values (" + fname + "," + lname + "," 
 						+ email+"," +month+ ","+year+","+story+","+shareable+","+addtolist+","+species+
 						", ST_GeomFromText('POINT(" + lon + " " + lat + ")', 4326))";
-				System.out.println(sql);
+				
+				// Print the sql statement to the console for debugging
+				//System.out.println(sql);
 			
 				dbutil.modifyDB(sql);
 			
@@ -138,12 +141,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		JSONArray list = new JSONArray();
 		String sql;
 		DBUtility dbutil = new DBUtility();
-		/* 
-		String sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm, "+
-				"st_X(ST_CENTROID(geom)) as longitude, st_y(ST_CENTROID(geom)) as latitude from public.rpt_cranes_in_pa "+ 
-				"Where species = 'SACR' and Month = 3 Order by geom <-> st_setsrid(st_makepoint(-121,42),4326) LIMIT 5";
-		*/	
-		
+
 		//Getter for species - return either 'SACR' or 'WHCR'
 		String species = request.getParameter("species");
 		//String species = "WHCR"; //FOR TESTING
@@ -162,15 +160,17 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 		//String longitude = "-100"; //FOR TESTING
 		//String latitude = "40"; //FOR TESTING
 		
-		// request report
+		// request report sql statement
 		sql = "select month, species, max_observed, avg_reports, d_des_tp,loc_nm, unit_nm, state_nm," + 
 					"st_X(ST_CENTROID(geom)) as longitude, st_y(ST_CENTROID(geom)) as latitude "+ 
 					"from public.rpt_cranes_in_pa where species = '"+ species + "' and month = "+ month +
 					" ORDER BY geom <-> st_setsrid(st_makepoint("+longitude+","+latitude+"), 4326) LIMIT "+ myCount;
 		
-		System.out.println(sql);
+		// Print the sql statement to the console for debugging
+		//System.out.println(sql);
 		
 		ResultSet res = dbutil.queryDB(sql);
+		//Create the HashMap with the returned values to display.
 		while (res.next()) {
 			HashMap<String, String> m = new HashMap<String,String>();
 			m.put("month", res.getString("month"));
